@@ -1,18 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const tabs = document.querySelectorAll('.tab');
+document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.page');
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const target = this.getAttribute('data-target');
-
-            pages.forEach(page => {
-                if (page.id === target) {
-                    page.classList.remove('hidden');
-                } else {
-                    page.classList.add('hidden');
-                }
-            });
-        });
+    // Add event listeners to SVG elements
+    document.getElementById('home-trigger').addEventListener('click', () => {
+        navigateToPage('home');
     });
+
+    document.getElementById('work-trigger').addEventListener('click', () => {
+        navigateToPage('work');
+    });
+
+    document.getElementById('about-trigger').addEventListener('click', () => {
+        navigateToPage('about');
+    });
+
+    document.getElementById('contact-trigger').addEventListener('click', () => {
+        navigateToPage('contact');
+    });
+
+    function navigateToPage(target) {
+        pages.forEach(page => {
+            page.classList.toggle('hidden', page.id !== target);
+        });
+    }
 });
