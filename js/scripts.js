@@ -1,10 +1,8 @@
-document.getElementById('home-trigger').addEventListener('click', () => {
-    showPage('home-page');
-});
 
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.add('hidden');
-    });
-    document.getElementById(pageId).classList.remove('hidden');
-}
+<script>
+  // Add a click event listener to the button
+  document.getElementById('workButton').addEventListener('click', function () {
+    // Navigate to the Work page
+    window.location.href = 'work.html'
+  });
+</script>
