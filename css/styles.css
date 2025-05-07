@@ -1,0 +1,45 @@
+@import url('clash-display.css');
+
+
+.page-section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 95vh;
+    display: none;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .page-section.active {
+      display: block;
+  }
+  
+  .background-svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+  }
+  
+  .content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+  }
+  
+  .about-text {
+    position: relative;
+    top: 5%;
+    left: 21.5%;
+    width: 26%;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    z-index: 2;
+    font-family: 'ClashDisplay-Semibold', sans-serif;
+    font-weight: 600;
+    font-display: swap;
+  }
