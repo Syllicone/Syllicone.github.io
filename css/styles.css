@@ -33,13 +33,66 @@
   
   .about-text {
     position: relative;
-    top: 5%;
-    left: 21.5%;
-    width: 26%;
-    font-size: 1.2rem;
+    width: 61%;
+    font-size: 3vmin;
     line-height: 1.5;
     z-index: 2;
     font-family: 'ClashDisplay-Semibold', sans-serif;
     font-weight: 600;
     font-display: swap;
   }
+
+
+  .custom-table {
+    display: flex;
+    top: 25%;
+    left: 25%;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    font-size: 2.25vmin;
+  }
+  
+  .row-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .row {
+    display: grid;
+    font-family: 'ClashDisplay-Medium', sans-serif;
+    grid-template-columns: .6fr .75fr 2fr 2fr 1fr;
+  }
+  
+  .row:hover {
+    cursor: pointer;
+  }
+  
+  .row:hover .highlight-on-hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s ease;
+    
+  }
+
+  
+  .row.header {
+    grid-template-columns: .6fr .75fr 2fr 2fr 1fr;
+    font-family: 'ClashDisplay-Semibold', sans-serif;
+    font-weight: 600;
+    padding-bottom: .5vmin;
+  }
+  
+  .cell {
+    padding: 0.25vmin .5vmin;
+  }
+  
+  .left {
+    text-align: left;
+  }
+  
+  .right {
+    text-align: right;
+  }
+  
