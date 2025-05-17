@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Escaping Recognition</title>
+  <link rel="stylesheet" href="css/clash-display.css">
+
+  <style>
+
+
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+}
+
+.project-page {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5vmin 2vmin;
+  text-align: center;
+  
+}
+
+.blank-page {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000%;
+  height: 4000%; /* !!! ADJUST PAGE HEIGHT !!! */
+  max-width: 1100px;
+  z-index: 0;
+  background-image: url('images/Blank\ Page.svg');
+  background-repeat: repeat-y;
+  background-size: contain;
+  filter: drop-shadow(rgba(128, 128, 128, 0.393) -5px 5px 3px);
+  pointer-events: none;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vmin;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  font-size: 2vmin;
+  padding: 0.5vmin 1vmin;
+  border-radius: 1vmin;
+  border: 2px solid #000000; /* Add a black border */
+  transition: border-color, coor 0.3s, color 0.3s; /* Optional: Add hover effect */
+}
+
+.back-link:hover {
+    border-color: #2c70d1; 
+  }
+
+  .Return-button {
+  position: absolute;  /* or fixed */
+  top: 10vmin;
+  right: 10vmin;
+  z-index: 1000;
+}
+
+.project-content {
+    position: absolute; /* Position relative to the parent container */
+    top: calc(12vmin + 5vmin); /* Position below the Return-button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    z-index: 2;
+    max-width: 1000px;
+    text-align: center;
+  }
+
+
+.project-main-image {
+  position: relative;
+  width: 55vw;
+  border: #000000 solid 0.3vmin;
+  border-radius: 1.5vmin;
+}
+
+.project-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 700;
+  font-size: 6vmin;
+  border-bottom: #000000 solid 0.3vmin;
+  line-height: 0.1;
+}
+
+.project-title {
+  text-align: left;
+}
+
+.project-year {
+  text-align: right;
+}
+
+.project-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 450;
+  font-size: 1.75vmin;
+  line-height: 1.7;
+  margin-top: 2vmin;
+}
+
+.project-description {
+  width: 60%;
+  text-align: left;
+}
+
+.project-brief {
+  width: 35%;
+  text-align: right; 
+}
+
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 3vmin; /* Space between grid items */
+  margin-top: 2vmin;
+}
+
+.image-item {
+  aspect-ratio: 16 / 9; /* Maintain a 16:9 aspect ratio */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+div.image-item img  {
+  width: 100%; 
+  height: auto; 
+  object-fit: cover;
+  border: 0.3vmin solid #000;
+  border-radius: 1.5vmin; 
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+div.image-item img:hover {
+  border-color: #2c70d1; /* Change border color on hover */
+}
+
+.image-item iframe {
+  border-radius: 1.5vmin; /* Optional: Add rounded corners */
+}
+
+.image-item p {
+  margin-top: 0.5vmin;
+  font-size: 1.5vmin;
+  color: #000; 
+  padding-left: 2%; 
+}
+
+.project-credits {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the left */
+  gap: 1vmin; /* Add spacing between the links */
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  border-top: #000000 solid 0.2vmin;
+}
+
+.project-credits-link {
+  display: block; /* Ensure each link takes up its own line */
+  text-decoration: none; /* Optional: Remove underline */
+  color: #000; /* Optional: Set link color */
+  transition: color 0.3s ease; /* Optional: Add hover effect */
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+  padding: 0.1vmin 0.5vmin;
+}
+
+.project-credits-link:hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+  </style>
+  
+</head>
+
+<body>
+  <div class="project-page">
+    <div class="blank-page"></div>
+
+
+    <div class ="Return-button">
+      <a href="index.html#WORK" class="back-link"> WORK 
+        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 250 250" width="15" height="15" >
+          <path d="M232.62,65.75L172.96,6.65l-58.83,59.1h47.25v100.62c0,12.81-17.44,31.04-30.38,31.04H17.38v23.94h114.38c24.39,0,53.62-29.19,53.62-53.49v-102.11h47.25Z"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="project-content">
+        <img src="images/project-assets/Escaping Recognition/Face.jpg" class="project-main-image" />
+
+        <div class="project-heading">
+          <div class="project-title">
+             <p>Escaping Recognition</p>
+            </div>
+          <div class="project-year">
+             <p>2025</p>
+            </div>
+        </div>
+
+        <div class="project-text">
+          <div class="project-description">
+            <p>This project aims to understand and escape from recognition (It is all around us). By looking at recognition from the perspectives of animals, detection from technology’s eyes and humans we can begin to understand how we truly exist. The auditory escape from animals may lead to being highly recognizable to another human. Escape is contradictory when it is from everything.
+
+Hide your features with the features of others, confusion in the crowds.
+‍
+Hide your Co2 from the mosquitoes, wear recognisable wearables.
+‍
+Hide your body from thermal cameras, eat hotpot and make new hot spots.</p>
+            </div>
+          <div class="project-brief">
+            <p>Drawing upon the notion of non-human intelligence - human, technological, animal - to investigate methods of evading them. I seek new methods for becoming unrecognizable in environments where I feel exposed or uncomfortable. In order to become comfortable in my habits, I first must understand all the ways I am perceived and can be perceived. Is it possible to escape at all?</p>
+            </div>
+        </div>
+
+        <div class="project-images">
+  <div class="image-grid">
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/animal lingo photos-02.jpg" alt="Animal Lingo Books">
+      <p>FIG 01. Animal Lingo Books</p>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/IMG_3893-2.jpg" alt="Gorilla Lingo Book">
+      <p>FIG 02. Gorilla Lingo Book</p>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/animal lingo photos-06-2.jpg" alt="This not That close up">
+      <p>FIG 03. 'This not That' close up</p>
+    </div>
+    <div class="image-item" >
+      <img src="images/project-assets/ALMs/This not that low res.gif" alt="This not That">
+      <p>FIG 04. 'This not That'</p>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/animal lingo photos-07.jpg" alt="Animal Lingo Books">
+      <p>FIG 05. Overlapping wild and zoo chameleons language models</p>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/animal lingo photos-11-2.jpg" alt="Animal Lingo Books">
+      <p>FIG 06. Close up of Gorilla ALM's</p>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/animal lingo photos-14.jpg" alt="Animal Lingo Books">
+      <p>FIG 07. Wild and Zoo gorilla language models</p>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/ALM Hypothesis Assests 6-01.jpg" alt="Animal Lingo Books">
+      <p>FIG 08. ALM Hypothesis diagram</p>
+    </div>
+<div class="image-item">
+  <iframe 
+    src="https://player.vimeo.com/video/1064648813?h=d7a10a2df7&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+    width="100%" 
+    height="100%" 
+    frameborder="1.5vmin" 
+    background-color="#000"
+    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+    title="LLM explained">
+
+  </iframe>
+    </div>
+    <div class="image-item">
+      <img src="images/project-assets/ALMs/ALM Test 3.png" alt="Animal Lingo Books">
+      <p>FIG 10. Language mapping model</p>
+    </div>
+
+    <div class="project-credits"> 
+      <p>In collaboration with:</p>
+      
+      <a href="https://billyhall.design/" target="_blank" class="project-credits-link">Billy Hall</a>
+      <a href="https://www.instagram.com/another_bad_student/" target="_blank" class="project-credits-link">Erin Botha</a> 
+      <a href="https://www.instagram.com/ssnorree/" target="_blank" class="project-credits-link">Snorre Havik</a>
+
+    </div>
+  
+
+
+  </div>
+</div>
+
+        </div>
+        
+
+    
+   
+  </div>
+   
+
+  
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Ginger</title>
+  <link rel="stylesheet" href="css/clash-display.css">
+
+  <style>
+
+
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+}
+
+.project-page {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5vmin 2vmin;
+  text-align: center;
+  
+}
+
+.blank-page {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000%;
+  height: 3500%; /* !!! ADJUST PAGE HEIGHT !!! */
+  max-width: 1100px;
+  z-index: 0;
+  background-image: url('images/Blank\ Page.svg');
+  background-repeat: repeat-y;
+  background-size: contain;
+  filter: drop-shadow(rgba(128, 128, 128, 0.393) -5px 5px 3px);
+  pointer-events: none;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vmin;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  font-size: 2vmin;
+  padding: 0.5vmin 1vmin;
+  border-radius: 1vmin;
+  border: 2px solid #000000; /* Add a black border */
+  transition: border-color, coor 0.3s, color 0.3s; /* Optional: Add hover effect */
+}
+
+.back-link:hover {
+    border-color: #2c70d1; 
+  }
+
+  .Return-button {
+  position: absolute;  /* or fixed */
+  top: 10vmin;
+  right: 10vmin;
+  z-index: 1000;
+}
+
+.project-content {
+    position: absolute; /* Position relative to the parent container */
+    top: calc(12vmin + 5vmin); /* Position below the Return-button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    z-index: 2;
+    max-width: 1000px;
+    text-align: center;
+  }
+
+
+.project-main-image {
+  position: relative;
+  width: 55vw;
+  border: #000000 solid 0.3vmin;
+  border-radius: 1.5vmin;
+}
+
+.project-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 700;
+  font-size: 6vmin;
+  border-bottom: #000000 solid 0.3vmin;
+  line-height: 0.1;
+}
+
+.project-title {
+  text-align: left;
+}
+
+.project-year {
+  text-align: right;
+}
+
+.project-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 450;
+  font-size: 1.75vmin;
+  line-height: 1.7;
+  margin-top: 2vmin;
+}
+
+.project-description {
+  width: 60%;
+  text-align: left;
+}
+
+.project-brief {
+  width: 35%;
+  text-align: right; 
+}
+
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 3vmin; /* Space between grid items */
+  margin-top: 2vmin;
+}
+
+.image-item {
+  aspect-ratio: 16 / 9; /* Maintain a 16:9 aspect ratio */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+div.image-item img {
+  width: 100%; /* Image will take up 100% of its container's width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image fits within its container */
+  border: 0.3vmin solid #000;
+  border-radius: 1.5vmin;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+div.image-item img:hover {
+  border-color: #2c70d1; /* Change border color on hover */
+}
+
+.image-item iframe {
+  border-radius: 1.5vmin; /* Optional: Add rounded corners */
+}
+
+.image-item p {
+  margin-top: 0.5vmin;
+  font-size: 1.5vmin;
+  color: #000; 
+  padding-left: 2%; 
+}
+
+.project-credits {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the left */
+  gap: 1vmin; /* Add spacing between the links */
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  border-top: #000000 solid 0.2vmin;
+}
+
+.project-credits-link {
+  display: block; /* Ensure each link takes up its own line */
+  text-decoration: none; /* Optional: Remove underline */
+  color: #000; /* Optional: Set link color */
+  transition: color 0.3s ease; /* Optional: Add hover effect */
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+  padding: 0.1vmin 0.5vmin;
+}
+
+.project-credits-link:hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+/* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Lightbox image */
+.lightbox-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+/* Close button */
+.lightbox-overlay .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Navigation buttons */
+.lightbox-overlay .prev-btn,
+.lightbox-overlay .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.lightbox-overlay .prev-btn {
+  left: 10px;
+}
+
+.lightbox-overlay .next-btn {
+  right: 10px;
+}
+
+.lightbox-overlay .prev-btn:hover,
+.lightbox-overlay .next-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+  </style>
+  
+</head>
+
+<body>
+  <div class="project-page">
+    <div class="blank-page"></div>
+
+
+    <div class ="Return-button">
+      <a href="index.html#WORK" class="back-link"> WORK 
+        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 250 250" width="15" height="15" >
+          <path d="M232.62,65.75L172.96,6.65l-58.83,59.1h47.25v100.62c0,12.81-17.44,31.04-30.38,31.04H17.38v23.94h114.38c24.39,0,53.62-29.19,53.62-53.49v-102.11h47.25Z"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="project-content">
+        <img src="images/project-assets/Project Ginger/DSCF9704.jpg" class="project-main-image" />
+
+        <div class="project-heading">
+          <div class="project-title">
+             <p>Project Ginger</p>
+            </div>
+          <div class="project-year">
+             <p>2024</p>
+            </div>
+        </div>
+
+        <div class="project-text">
+          <div class="project-description">
+            <p>Making is an act that extends out reach both upwards and outwards and strengthens our foundations. Or has both roots and stems through a single node, a rhizome. In order to make a position in the field of design, we must make. Through engaging with the full network that making encompasses; harvesters, suppliers, workshops, studios, tools, processes, histories, we can embed our practice within this network. This project aims to convince others to think through making, to maintain craft knowledge, and to acknowledge histories. By doing these things I hope to start a passion for some element that is contained within making. As objects are the meeting point of the knowledge of many. It is important to learn to make as a holistic approach to living as well as designing.
+
+Over a six week period, I asked professional makers to set me a task to teach me about a tool, material, or process they were interested in. These tasks were one to two days in length, and had a clear material outcome. I used personal motivators such as progress bars, badges, and time constraints. The final outcome, a publication, and the six assigned objects.</p>
+            </div>
+          <div class="project-brief">
+            <p>Goldsmiths BA Design year one final project. This project and brief arise from a personal interest in developing craft skills, meeting makers with their own practices in London, and using gamification as a method of approach. The Ginger Project is my response to my self written brief, I AM A GOOD MAKER. Where I wanted to be recognised as a good maker through external identifiers, i.e. someone who is good at karate wears a black belt. However, throughout the project, the goal became less about self indulgence or gamification but rather being able to share the game with others to ‘play’.</p>
+            </div>
+        </div>
+
+        <div class="project-images">
+  <div class="image-grid">
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9752.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9752.jpg" alt="Animal Lingo Books">
+      </a>
+      <p>FIG 01. Project Ginger Publication</p>
+    </div>
+
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9712.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9712.jpg" alt="Gorilla Lingo Book">
+      </a>
+      <p>FIG 02. Dancing Leg Calipers</p>
+    </div>
+
+    <div class="hidden-images" style="display: none;">
+      <a href="images/project-assets/Project Ginger/1Artboard 5.png" class="lightbox"></a>
+    </div>
+
+
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9552.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9552.jpg">
+      </a>
+      <p>FIG 03. Saw Handle Replica</p>
+    </div>
+
+    <div class="hidden-images" style="display: none;">
+      <a href="images/project-assets/Project Ginger/1Artboard 4.png" class="lightbox"></a>
+    </div>
+
+
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9738.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9738.jpg">
+      </a>
+      <p>FIG 04.  Gypsy Peg</p>
+    </div>
+
+    <div class="hidden-images" style="display: none;">
+      <a href="images/project-assets/Project Ginger/1Artboard 3.png" class="lightbox"></a>
+    </div>
+
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9579.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9579.jpg">
+      </a>
+      <p>FIG 05. Sphere</p>
+    </div>
+
+        <div class="hidden-images" style="display: none;">
+      <a href="images/project-assets/Project Ginger/1Artboard 6.png" class="lightbox"></a>
+    </div>
+
+
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9591.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9591.jpg">
+      </a>
+      <p>FIG 06. Offset Angle Iron Frame</p>
+    </div>
+
+    <div class="hidden-images" style="display: none;">
+      <a href="images/project-assets/Project Ginger/1Artboard 2.png" class="lightbox"></a>
+    </div>
+
+
+    <div class="image-item">
+      <a href="images/project-assets/Project Ginger/DSCF9597.jpg" class="lightbox">
+        <img src="images/project-assets/Project Ginger/DSCF9597.jpg">
+      </a>
+      <p>FIG 07. Eco-Board Box</p>
+    </div>
+
+    <div class="hidden-images" style="display: none;">
+      <a href="images/project-assets/Project Ginger/1Artboard 7.png" class="lightbox"></a>
+    </div>
+
+
+  </div>
+</div>
+
+        </div>
+        
+
+    
+   
+  </div>
+   
+
+  
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const lightboxLinks = document.querySelectorAll(".lightbox");
+  const lightboxOverlay = document.createElement("div");
+  lightboxOverlay.classList.add("lightbox-overlay");
+  lightboxOverlay.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <img src="" alt="Lightbox Image">
+    <button class="prev-btn">&#10094;</button>
+    <button class="next-btn">&#10095;</button>
+  `;
+  document.body.appendChild(lightboxOverlay);
+
+  const lightboxImage = lightboxOverlay.querySelector("img");
+  const closeBtn = lightboxOverlay.querySelector(".close-btn");
+  const prevBtn = lightboxOverlay.querySelector(".prev-btn");
+  const nextBtn = lightboxOverlay.querySelector(".next-btn");
+
+  let currentIndex = 0;
+
+  const showImage = (index) => {
+    const totalImages = lightboxLinks.length;
+    if (index < 0) {
+      currentIndex = totalImages - 1; // Wrap to the last image
+    } else if (index >= totalImages) {
+      currentIndex = 0; // Wrap to the first image
+    } else {
+      currentIndex = index;
+    }
+    const imgSrc = lightboxLinks[currentIndex].getAttribute("href");
+    lightboxImage.src = imgSrc;
+    lightboxOverlay.style.display = "flex";
+  };
+
+  lightboxLinks.forEach((link, index) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      showImage(index);
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    lightboxOverlay.style.display = "none";
+  });
+
+  prevBtn.addEventListener("click", () => {
+    showImage(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    showImage(currentIndex + 1);
+  });
+
+  lightboxOverlay.addEventListener("click", (e) => {
+    if (e.target === lightboxOverlay) {
+      lightboxOverlay.style.display = "none";
+    }
+  });
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>More!</title>
+  <link rel="stylesheet" href="css/clash-display.css">
+
+  <style>
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+}
+
+.header {
+  display: flex; 
+  width: 75%;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4vmin;
+  margin: 0 auto;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  font-size: 3vmin;
+}
+
+.header-left,
+.header-right {
+  flex: 0 0 auto;
+}
+
+.grid-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10vmin;
+  margin: 20vmin auto;
+  width: 70%;
+  max-width: 1400px;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid-image {
+  width: 100%;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.grid-caption {
+  margin-top: 1vmin;
+  font-size: 1.5vmin;
+  text-align: left;
+  align-self: stretch;
+  color: #333;
+}
+
+.return {
+  position: relative; /* Needed for pseudo-element positioning */
+  flex: 1 1 0;
+  max-width: 30%;
+  min-width: 20%;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  padding: 0 1vmin;
+  margin: 0 2vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.return::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0; width: 2.25em;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+  z-index: 2;
+}
+
+.return::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; width: 2.25em;
+  pointer-events: none;
+  background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+  z-index: 2;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: moveLeft 15s linear infinite;
+}
+
+.return a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 2vmin;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  white-space: nowrap;
+  margin-right: 2vmin;
+  padding: 0.5vmin 2vmin; /* Adds top/bottom and left/right padding */
+  border-radius: 1vmin;    /* Optional: rounded corners */
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+  </style>
+</head>
+
+
+
+
+<body>
+
+<div class="header"> 
+  <div class="header-left">
+    <p>Wait there's More?</p>
+  </div> 
+
+  <div class="return">
+    <div class="marquee">
+      <a href="index.html#WORK">
+        <span>
+          Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back
+        </span>
+        <span>
+          Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back &nbsp;•&nbsp; Take me back
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <p>Archive your stuff!</p>
+  </div>  
+</div>
+
+
+
+
+<div class="content">
+<div class="grid-gallery">
+
+  <div class="grid-item">
+    <img src="images/More to come!/IMG-20240423-WA0049.jpg" class="grid-image">
+    <div class="grid-caption">That'll do</div>
+  </div>
+
+  <div class="grid-item">
+    <img src="images/More to come!/Origami-Hex_Waterbomb_Front.jpg" class="grid-image">
+    <div class="grid-caption">Repeating Hex Waterbomb, not my pattern either</div>
+  </div>
+
+  <div class="grid-item">
+    <img src="images/More to come!/Origami-Herringbone.jpg" class="grid-image">
+    <div class="grid-caption">The pattern was in the paper already, not my pattern</div>
+  </div>
+
+
+</div>
+
+</body>
+</html>
