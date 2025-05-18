@@ -40,7 +40,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 1000%;
-  height: 3750%; /* !!! ADJUST PAGE HEIGHT !!! */
+  height: 3850%; /* !!! ADJUST PAGE HEIGHT !!! */
   max-width: 1100px;
   z-index: 0;
   background-image: url('images/Blank\ Page.svg');
@@ -222,7 +222,48 @@ body {
   object-fit: contain;
 }
 
-  </style>
+.collaboration-section {
+  border-top: 1.5px solid #000;
+  width: 90%;
+  text-align: left;
+  padding: 1vmin;
+}
+
+.collab-title {
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  font-size: 2vmin;
+  margin-bottom: 1.5vmin;
+  letter-spacing: 0.05em;
+}
+
+.collab-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1vmin;
+  justify-content: left;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 450;
+  color:#000000;
+  text-decoration: none;
+  padding: 0.5vmin 0.5vmin;
+  max-width: 30%;
+}
+
+.collab-links a {
+  color:#000;
+  text-decoration: none;
+
+
+}
+
+.collab-links a:hover {
+  color: #ffffff;
+  background-color: #000000;
+  transition: color 0.2s, background-color 0.2s;
+}
+  
+</style>
   
 </head>
 
@@ -364,7 +405,14 @@ body {
     <p class="caption">FIG. 10 Close up of Gorilla ALM's</p>
   </div>
 
-
+<div class="collaboration-section">
+      <p class="collab-title">In Collaboration with</p>
+      <div class="collab-links">
+        <a href="https://billyhall.design/" target="_blank">Billy Hall</a>
+        <a href="https://www.instagram.com/another_bad_student/" target="_blank">Erin Botha</a>
+        <a href="https://www.instagram.com/ssnorree/" target="_blank">Snorre Havik</a>
+      </div>
+    </div>
 
 </div>
 
