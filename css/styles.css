@@ -32,7 +32,7 @@
   }
   
   .about-text {
-    position: relative;
+    position: flex;
     width: 61%;
     font-size: 3vmin;
     line-height: 1.5;
