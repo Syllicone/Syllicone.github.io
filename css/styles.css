@@ -42,7 +42,6 @@
     font-display: swap;
   }
 
-
   .custom-table {
     display: flex;
     top: 25%;
@@ -53,6 +52,15 @@
     font-size: 2.25vmin;
   }
   
+  .More-to-come {
+    display: flex;
+    font-size: 3.75vmin;
+    font-family: 'ClashDisplay-Medium', sans-serif;
+    font-weight: 600;
+    rotate: 6deg;
+
+  }
+
   .row-link {
     text-decoration: none;
     color: inherit;
@@ -94,4 +102,63 @@
   .right {
     text-align: right;
   }
+
+  .more-box {
+    width: 200px;
+    height: 45px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    rotate: 6deg;
+  }
   
+  /* Gradient fade at top and bottom */
+  .more-box::before,
+  .more-box::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  
+  /* Jiggle animation */
+  .animate-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: jiggle 1.8s infinite cubic-bezier(.36,.07,.19,.97);
+  }
+  
+  @keyframes jiggle {
+    0%   { transform: translateY(0); }
+    10%  { transform: translateY(-1px); }
+    20%  { transform: translateY(1px); }
+    30%  { transform: translateY(-1px); }
+    40%  { transform: translateY(1px); }
+    50%  { transform: translateY(-.5px);}
+    60%  { transform: translateY(.5px);}
+    70%  { transform: translateY(-.5px);}
+    80%  { transform: translateY(.5px);}
+    90%  { transform: translateY(0);}
+    100% { transform: translateY(0);}
+  }
+  
+  .more-item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ClashDisplay-Medium', sans-serif;
+    font-weight: 600;
+    font-size: 3.75vmin;
+    color: #000000;
+    text-decoration: underline;
+    letter-spacing: 0.05em;
+  }
+
