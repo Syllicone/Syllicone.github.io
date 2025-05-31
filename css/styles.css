@@ -162,3 +162,9 @@
     letter-spacing: 0.05em;
   }
 
+  @media (max-width: 600px) {
+  .custom-table {
+    font-size: 1.3em;
+  }
+}
+
