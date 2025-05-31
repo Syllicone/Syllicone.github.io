@@ -38,9 +38,9 @@ body {
 .grid-gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10vmin;
+  gap: 8vmin;
   margin: 20vmin auto;
-  width: 70%;
+  width: 75%;
   max-width: 1400px;
 }
 
@@ -124,15 +124,19 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .grid-gallery {
     grid-template-columns: 1fr;
-    gap: 4vmin;
+    gap: 10vmin;
     width: 95%;
     margin: 4vmin auto;
   }
+  .grid-item {
+    width: 55%;
+    margin: 0 auto;
+  }
   .grid-caption {
-    font-size: 3.5vmin;
+    font-size: 2vmin;
   }
 }
 
