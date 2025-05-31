@@ -163,8 +163,8 @@
   }
 
   @media (max-width: 600px) {
-  .custom-table {
-    font-size: 1.3em;
+  .custom-table, .more-box, .about-text {
+    font-size: 1.1em;
   }
 }
 
