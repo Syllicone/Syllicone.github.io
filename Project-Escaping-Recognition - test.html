@@ -22,6 +22,7 @@ body {
   color: #000000;
   text-align: center;
   z-index: 1000;
+  display: none;
 }
 
 .project-page {
@@ -38,7 +39,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 1000%;
-  height: 6750%; /* !!! ADJUST PAGE HEIGHT !!! */
+  height: 7000%; /* !!! ADJUST PAGE HEIGHT !!! */
   max-width: 1100px;
   z-index: 0;
   background-image: url('images/Blank\ Page.svg');
@@ -166,8 +167,7 @@ body {
   margin: 3vmin auto;
   max-width: 1000px;
   padding: 0 1vmin;
-  padding-bottom: 2vmin;
-  border-bottom: #000000 solid 0.2vmin;
+  padding-bottom: 3vmin;
 }
 
 .media-grid-text {
@@ -182,6 +182,10 @@ body {
   grid-column: span 2;
 }
 
+.border{
+  border-bottom: #000000 solid 0.2vmin;
+}
+
 .references {
   font-family: 'ClashDisplay-Variable', sans-serif;
   font-weight: 400;
@@ -189,6 +193,18 @@ body {
   line-height: 1.25;
   text-align: left;
   margin-top: 3vmin;
+  padding: 0.5vmin 0.5vmin;
+}
+
+.references a {
+  color:#000;
+  text-decoration: none;
+}
+
+.references a:hover {
+  color: #ffffff;
+  background-color: #000000;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .center-bold {
@@ -288,15 +304,17 @@ body {
 
         <div class="project-text">
           <div class="project-description">
-            <p>The mortifying ordeal of being known is becoming increasingly mortifying as high resolution satellites orbit the earth, as we live in close proximity to animal vision system we do not comprehend, and interact with an increasing amount of people.
+            <div class="media-grid">
+            <p>The mortifying ordeal of being known is becoming increasingly complex as high resolution satellites orbit the earth, as we live in close proximity to animal vision system we do not comprehend, and interact with an increasing amount of people.
 <br>
 <br>
 If only there was a way to understand and evade how we are perceived. 
             </p>
             </div>
         </div>
+        </div>
 
-<div class="media-grid">
+<div class="media-grid border">
 
   <!-- Image with caption -->
   <div class="media-item">
@@ -318,7 +336,7 @@ If only there was a way to understand and evade how we are perceived.
   </div>
   </div>
 
-<div class="media-grid">
+<div class="media-grid border">
 
   <div class="media-grid-text">
     <p>JUMPING OFF POINT</p>
@@ -348,7 +366,7 @@ If only there was a way to understand and evade how we are perceived.
   </div>
   </div>
 
-<div class="media-grid">
+<div class="media-grid border">
 
   <div class="media-grid-text">
     <p>SCOPE & TESTING</p>
@@ -400,8 +418,8 @@ If only there was a way to understand and evade how we are perceived.
   </div>
   </div>
 
-  <div class="media-grid">
-  <div class="media-grid-text span-2">
+  <div class="media-grid border">
+  <div class="media-grid-text">
     <p>WHERE DO YOU NOT WANT TO BE RECOGNISED?</p>
   </div>
 
@@ -418,7 +436,7 @@ If only there was a way to understand and evade how we are perceived.
   </div>
   </div>
 
-    <div class="media-grid">
+    <div class="media-grid border">
   <div class="media-grid-text">
     <p>UNDERSTANDING SITE SPECIFICS</p>
   </div>
@@ -455,7 +473,7 @@ If only there was a way to understand and evade how we are perceived.
   </div>
   </div>
 
-    <div class="media-grid">
+    <div class="media-grid border">
   <div class="media-grid-text">
     <p>UNDERSTANDING VISION SYSTEMS</p>
   </div>
@@ -501,7 +519,15 @@ If only there was a way to understand and evade how we are perceived.
   </div>
   </div>
 
-  <div class="media-grid">
+  <div class="media-grid border">
+    <div class="media-grid-text">
+    <p>HOW TO AVOID EVERYTHING: ONE THING AT A TIME</p>
+  </div>
+
+    <div class="media-grid-text">
+    <p>The focus of this book is to make clear the 'eyes' that surround us. The pocket guide should be used to observe, navigate, and orientate us in a world filled with the fascinating ways animals see us and where vision technology usage is increasing. All in the hope of understanding first to evade later.</p>
+  </div>
+  
 
 <div class="media-item">
     <a href="images/project-assets/Escaping Recognition/Cover.jpg" data-fancybox="gallery" data-caption="How to Avoic Everything: One thing at a time pocket guide">
@@ -526,26 +552,25 @@ If only there was a way to understand and evade how we are perceived.
     <p>REFERENCES
       <br>
       <br>
-      How Not To Be Seen: A Fucking Didactic Educational, Hito Steyerl
+      <a href="https://archive.org/details/Flickr-26845118378" target="_blank">How Not To Be Seen: A Fucking Didactic Educational, Hito Steyerl</a>
       <br>
       <br>
-      Ways of Being, James Bridles
+      <a href="https://jamesbridle.com/books/ways-of-being" target="_blank">Ways of Being, James Bridle</a>
       <br>
       <br>
-      Balconism, Constant Dullaart
+      <a href="https://www.artpapers.org/balconism/" target="_blank">Balconism, Constant Dullaart</a>
       <br>
       <br>
-      Evidence Locker, Jill Magid
+      <a href="https://www.jillmagid.com/projects/evidence-locker-2" target="_blank">Evidence Locker, Jill Magid</a>
       <br>
       <br>
-      DAIMLER STR. 38, Tue Greenfort
+      <a href="https://www.tuegreenfort.com/daimler-str-38-2001" target="_blank">DAIMLER STR. 38, Tue Greenfort</a>
       <br>
       <br>
+      <a href="text" target="_blank"> Text </a>
       How to Disappear Completely and Never Be Found, Doug Richmond
     </p>
   </div>
-
-    
 
 
 
