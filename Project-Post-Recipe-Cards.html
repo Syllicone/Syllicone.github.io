@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post Recipe Cards</title>
+  <link rel="stylesheet" href="css/clash-display.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+
+
+
+  <style>
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+}
+
+.WOP {
+  position: center;
+  color: #000000;
+  text-align: center;
+  z-index: 1000;
+  display: none;
+}
+
+.project-page {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5vmin 2vmin;
+  text-align: center;
+}
+
+.blank-page {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000%;
+  height: 5800%; /* !!! ADJUST PAGE HEIGHT !!! */
+  max-width: 1100px;
+  z-index: 0;
+  background-image: url('images/Blank\ Page.svg');
+  background-repeat: repeat-y;
+  background-size: contain;
+  filter: drop-shadow(rgba(128, 128, 128, 0.393) -5px 5px 3px);
+  pointer-events: none;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vmin;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+  font-size: 2vmin;
+  padding: 0.5vmin 1vmin;
+  border-radius: 1vmin;
+  border: 2px solid #000000; /* Add a black border */
+  transition: border-color, coor 0.3s, color 0.3s; /* Optional: Add hover effect */
+}
+
+.back-link:hover {
+    border-color: #2c70d1; 
+  }
+
+.Return-button {
+  position: absolute;  /* or fixed */
+  top: 10vmin;
+  right: 10vmin;
+  z-index: 1000;
+}
+
+.project-content {
+    position: absolute; /* Position relative to the parent container */
+    top: calc(12vmin + 5vmin); /* Position below the Return-button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    z-index: 2;
+    max-width: 1000px;
+    text-align: center;
+  }
+
+.project-main-image {
+  position: relative;
+  width: 55vw;
+  border: #000000 solid 0.3vmin;
+  border-radius: 1.5vmin;
+}
+
+.project-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 700;
+  font-size: 6vmin;
+  border-bottom: #000000 solid 0.3vmin;
+  line-height: 0.1;
+}
+
+@media (max-width: 600px) {
+  .project-heading {
+    font-size: 3.5vmin;
+  }
+}
+
+.project-title {
+  text-align: left;
+}
+
+.project-year {
+  text-align: right;
+}
+
+.project-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 450;
+  font-size: 1.75vmin;
+  line-height: 1.7;
+  margin-top: 2vmin;
+}
+
+.project-description {
+  width: 60%;
+  text-align: left;
+}
+
+.project-brief {
+  width: 35%;
+  text-align: right; 
+}
+
+.project-credits {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the left */
+  gap: 1vmin; /* Add spacing between the links */
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 600;
+  border-top: #000000 solid 0.2vmin;
+}
+
+.project-credits-link {
+  display: block; /* Ensure each link takes up its own line */
+  text-decoration: none; /* Optional: Remove underline */
+  color: #000; /* Optional: Set link color */
+  transition: color 0.3s ease; /* Optional: Add hover effect */
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+  padding: 0.1vmin 0.5vmin;
+}
+
+.project-credits-link:hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3vmin;
+  margin: 3vmin auto;
+  max-width: 1000px;
+  padding: 0 1vmin;
+  padding-bottom: 3vmin;
+}
+
+.media-grid-text {
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+  font-size: 1.75vmin;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.border{
+  border-bottom: #000000 solid 0.2vmin;
+}
+
+.references {
+  font-family: 'ClashDisplay-Variable', sans-serif;
+  font-weight: 400;
+  font-size: 1.75vmin;
+  line-height: 1.25;
+  text-align: left;
+  margin-top: 3vmin;
+  padding: 0.5vmin 0.5vmin;
+}
+
+.references a {
+  color:#000;
+  text-decoration: none;
+}
+
+.references a:hover {
+  color: #ffffff;
+  background-color: #000000;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.center-bold {
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  margin: 1.5vmin 0;
+}
+
+.media-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.media-box {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 1.5vmin;
+  border: 2px solid black;
+  background: #ffffff;
+  position: relative;
+}
+
+.media-box img,
+.media-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.media-box:hover {
+    border-color: #2c70d1; 
+}
+
+.caption {
+  text-align: center;
+  padding: 0.3vmin 0;
+  margin-top: 1vmin;
+  font-size: 1.4vmin;
+  color: #222;
+}
+
+.fancybox__caption{
+  text-align: center;
+}
+
+.fancybox__container img,
+.fancybox__container video {
+  border-radius: 1.5vmin;
+}
+
+.media-box img[src="images/project-assets/Escaping Recognition/Development of filial preferences in dark-reared chicks.jpg"],
+.media-box img[src="images/project-assets/Escaping Recognition/Male pigeons react differently to altered facial features of female pigeons.png"] {
+  object-fit: contain;
+}
+
+  </style>
+  
+
+</head>
+
+<body>
+
+<div class="WOP">
+  <p> This page is a work in progress. <br> More to come soon! </p>
+</div>
+
+
+  <div class="project-page">
+    <div class="blank-page"></div>
+
+
+    <div class ="Return-button">
+      <a href="index.html#WORK" class="back-link"> WORK 
+        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 250 250" width="15" height="15" >
+          <path d="M232.62,65.75L172.96,6.65l-58.83,59.1h47.25v100.62c0,12.81-17.44,31.04-30.38,31.04H17.38v23.94h114.38c24.39,0,53.62-29.19,53.62-53.49v-102.11h47.25Z"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="project-content">
+        <img src="images/project-assets/Post Recipe Cards/Main.jpg" class="project-main-image" />
+
+        <div class="project-heading">
+          <div class="project-title">
+             <p>Post Recipe Cards</p>
+            </div>
+          <div class="project-year">
+             <p>2024</p>
+            </div>
+        </div>
+
+        <div class="project-text">
+          <div class="project-description">
+            <div class="media-grid">
+            <p>For when you can’t show someone how to make a dish where you must measure with your fingers and eyeball the sauces. Made with the main ingredient of each dish and a little love. These postcard recipes were created using the food waste from a summer of feasts, banquets, and gatherings.
+            </p>
+            </div>
+        </div>
+        </div>
+
+<div class="media-grid">
+
+  <!-- Image with caption -->
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post Recipe cards gif.gif" data-fancybox="gallery" data-caption="All 20 of them">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post Recipe cards gif.gif"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 01 All 20 of them</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Stack.jpg" data-fancybox="gallery" data-caption="Stack shot">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Stack.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 02 Stack shot</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_01.jpg" data-fancybox="gallery" data-caption="Guacamole">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_01.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 03 Guacamole</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_02.jpg" data-fancybox="gallery" data-caption="Cinnamon Bananas">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_02.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 04 Cinnamon Bananas</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_03.jpg" data-fancybox="gallery" data-caption="Mum's Beetroot">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_03.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 05 Mum's Beetroot</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_04.jpg" data-fancybox="gallery" data-caption="Carrot Rice">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_04.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 06 Carrot Rice</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_05.jpg" data-fancybox="gallery" data-caption="Green Salad">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_05.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 07 Green Salad</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_06.jpg" data-fancybox="gallery" data-caption="Sweetcorn Soup">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_06.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 08 Sweetcorn Soup</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_07.jpg" data-fancybox="gallery" data-caption="Courgette Noodles">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_07.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 09 Courgette Noodles</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_08.jpg" data-fancybox="gallery" data-caption="Bang Bang Cucumber Noodles">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_08.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 10 Bang Bang Cucumber Noodles</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_09.jpg" data-fancybox="gallery" data-caption="Nuoc Cham">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_09.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 11 Nuoc Cham</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_10.jpg" data-fancybox="gallery" data-caption="Ginger Oil">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_10.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 12 Ginger Oil</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_11.jpg" data-fancybox="gallery" data-caption="Pickled Green Chillies">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_11.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 13 Pickled Green Chillies</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_12.jpg" data-fancybox="gallery" data-caption="Lemon Curd">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_12.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 14 Lemon Curd</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_13.jpg" data-fancybox="gallery" data-caption="Lime Meringue">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_13.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 15 Lime Meringue</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_14.jpg" data-fancybox="gallery" data-caption="Onion Rings">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_14.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 16 Onion Rings</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_15.jpg" data-fancybox="gallery" data-caption="Orange Slices">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_15.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 17 Orange Slices</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_16.jpg" data-fancybox="gallery" data-caption="Poached Pears">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_16.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 18 Poached Pears</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_17.jpg" data-fancybox="gallery" data-caption="Roast Potatoes">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_17.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 19 Roast Potatoes</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_18.jpg" data-fancybox="gallery" data-caption="Chilli Crisp">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_18.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 20 Chilli Crisp</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_19.jpg" data-fancybox="gallery" data-caption="Spring Onion Pancakes">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_19.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 21 Spring Onion Pancakes</p>
+  </div>
+
+  <div class="media-item">
+    <a href="images/project-assets/Post Recipe Cards/Post recipe cards_20.jpg" data-fancybox="gallery" data-caption="Simple Tomato Sauce">
+      <div class="media-box">
+        <img src="images/project-assets/Post Recipe Cards/Post recipe cards_20.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG. 22 Simple Tomato Sauce</p>
+  </div>
+
+
+</div>
+
+
+
+  </div>
+</div>
+
+   
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+</body>
+
+</html>
