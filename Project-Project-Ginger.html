@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Project Ginger</title>
   <link rel="stylesheet" href="css/clash-display.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
   <style>
 
@@ -16,13 +17,19 @@ body {
   font-weight: 400;
 }
 
+.WOP {
+  position: center;
+  color: #000000;
+  text-align: center;
+  z-index: 1000;
+}
+
 .project-page {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 5vmin 2vmin;
   text-align: center;
-  
 }
 
 .blank-page {
@@ -31,7 +38,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 1000%;
-  height: 3500%; /* !!! ADJUST PAGE HEIGHT !!! */
+  height: 3850%; /* !!! ADJUST PAGE HEIGHT !!! */
   max-width: 1100px;
   z-index: 0;
   background-image: url('images/Blank\ Page.svg');
@@ -60,7 +67,7 @@ body {
     border-color: #2c70d1; 
   }
 
-  .Return-button {
+.Return-button {
   position: absolute;  /* or fixed */
   top: 10vmin;
   right: 10vmin;
@@ -76,7 +83,6 @@ body {
     max-width: 1000px;
     text-align: center;
   }
-
 
 .project-main-image {
   position: relative;
@@ -133,47 +139,6 @@ body {
   text-align: right; 
 }
 
-
-.image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-  gap: 3vmin; /* Space between grid items */
-  margin-top: 2vmin;
-}
-
-.image-item {
-  aspect-ratio: 16 / 9; /* Maintain a 16:9 aspect ratio */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: left;
-}
-
-div.image-item img {
-  width: 100%; /* Image will take up 100% of its container's width */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Ensure the image fits within its container */
-  border: 0.3vmin solid #000;
-  border-radius: 1.5vmin;
-  transition: border-color 0.3s ease; /* Smooth transition for border color */
-}
-
-div.image-item img:hover {
-  border-color: #2c70d1; /* Change border color on hover */
-}
-
-.image-item iframe {
-  border-radius: 1.5vmin; /* Optional: Add rounded corners */
-}
-
-.image-item p {
-  margin-top: 0.5vmin;
-  font-size: 1.5vmin;
-  color: #000; 
-  padding-left: 2%; 
-}
-
 .project-credits {
   display: flex;
   flex-direction: column; /* Stack items vertically */
@@ -200,64 +165,66 @@ div.image-item img:hover {
     transition: all 0.2s ease;
 }
 
-/* Lightbox overlay */
-.lightbox-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3vmin;
+  margin: 3vmin auto;
+  max-width: 1000px;
+  padding: 0 1vmin;
+}
+
+.media-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.media-box {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 1.5vmin;
+  border: 2px solid black;
+  background: #ffffff;
+  position: relative;
+}
+
+.hidden{
+  display: none;
+}
+
+
+.media-box img,
+.media-box video {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  object-fit: cover;
+  display: block;
 }
 
-/* Lightbox image */
-.lightbox-overlay img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
+.media-box:hover {
+    border-color: #2c70d1; 
 }
 
-/* Close button */
-.lightbox-overlay .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
+.caption {
+  text-align: center;
+  padding: 0.3vmin 0;
+  margin-top: 1vmin;
+  font-size: 1.4vmin;
+  color: #222;
 }
 
-/* Navigation buttons */
-.lightbox-overlay .prev-btn,
-.lightbox-overlay .next-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  z-index: 1001;
+.fancybox__caption{
+  text-align: center;
 }
 
-.lightbox-overlay .prev-btn {
-  left: 10px;
+.fancybox__container img,
+.fancybox__container video {
+  border-radius: 1.5vmin;
 }
 
-.lightbox-overlay .next-btn {
-  right: 10px;
-}
-
-.lightbox-overlay .prev-btn:hover,
-.lightbox-overlay .next-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
 
   </style>
   
@@ -299,85 +266,118 @@ Over a six week period, I asked professional makers to set me a task to teach me
             </div>
         </div>
 
-        <div class="project-images">
-  <div class="image-grid">
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9752.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9752.jpg" alt="Animal Lingo Books">
-      </a>
-      <p>FIG 01. Project Ginger Publication</p>
-    </div>
+        <div class="media-grid">
 
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9712.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9712.jpg" alt="Gorilla Lingo Book">
-      </a>
-      <p>FIG 02. Dancing Leg Calipers</p>
-    </div>
+  <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9752.jpg" data-fancybox="gallery" data-caption="Project Ginger Publication">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9752.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 01. Project Ginger Publication</p>
+  </div>
 
-    <div class="hidden-images" style="display: none;">
-      <a href="images/project-assets/Project Ginger/1Artboard 5.png" class="lightbox"></a>
-    </div>
+    <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9712.jpg" data-fancybox="gallery" data-caption="Dancing Leg Calipers">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9712.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 02. Dancing Leg Calipers</p>
+  </div>
 
+  <div class="media-item hidden">
+    <a href="images/project-assets/Project Ginger/1Artboard 5.png" data-fancybox="gallery" data-caption="Dancing Leg Calipers">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/1Artboard 5.png"/>
+      </div>
+    </a>
+  </div>
 
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9552.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9552.jpg">
-      </a>
-      <p>FIG 03. Saw Handle Replica</p>
-    </div>
+    <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9552.jpg" data-fancybox="gallery" data-caption="Saw Handle Replica">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9552.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 03. Saw Handle Replica</p>
+  </div>
 
-    <div class="hidden-images" style="display: none;">
-      <a href="images/project-assets/Project Ginger/1Artboard 4.png" class="lightbox"></a>
-    </div>
+  <div class="media-item hidden">
+    <a href="images/project-assets/Project Ginger/1Artboard 4.png" data-fancybox="gallery" data-caption="Saw Handle Replica">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/1Artboard 4.png"/>
+      </div>
+    </a>
+  </div>
 
+    <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9738.jpg" data-fancybox="gallery" data-caption="Gypsy Peg">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9738.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 04. Gypsy Peg</p>
+  </div>
 
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9738.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9738.jpg">
-      </a>
-      <p>FIG 04.  Gypsy Peg</p>
-    </div>
+  <div class="media-item hidden">
+    <a href="images/project-assets/Project Ginger/1Artboard 3.png" data-fancybox="gallery" data-caption="Gypsy Peg">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/1Artboard 3.png"/>
+      </div>
+    </a>
+  </div>
 
-    <div class="hidden-images" style="display: none;">
-      <a href="images/project-assets/Project Ginger/1Artboard 3.png" class="lightbox"></a>
-    </div>
+    <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9579.jpg" data-fancybox="gallery" data-caption="Sphere">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9579.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 05. Sphere</p>
+  </div>
 
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9579.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9579.jpg">
-      </a>
-      <p>FIG 05. Sphere</p>
-    </div>
+  <div class="media-item hidden">
+    <a href="images/project-assets/Project Ginger/1Artboard 6.png" data-fancybox="gallery" data-caption="Sphere">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/1Artboard 6.png"/>
+      </div>
+    </a>
+  </div>
 
-        <div class="hidden-images" style="display: none;">
-      <a href="images/project-assets/Project Ginger/1Artboard 6.png" class="lightbox"></a>
-    </div>
+    <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9591.jpg" data-fancybox="gallery" data-caption="Offset Angle Iron Frame">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9591.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 06. Offset Angle Iron Frame</p>
+  </div>
 
+  <div class="media-item hidden">
+    <a href="images/project-assets/Project Ginger/1Artboard 2.png" data-fancybox="gallery" data-caption="Offset Angle Iron Frame">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/1Artboard 2.png"/>
+      </div>
+    </a>
+  </div>
 
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9591.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9591.jpg">
-      </a>
-      <p>FIG 06. Offset Angle Iron Frame</p>
-    </div>
+    <div class="media-item">
+    <a href="images/project-assets/Project Ginger/DSCF9597.jpg" data-fancybox="gallery" data-caption="Eco-Board Box">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/DSCF9597.jpg"/>
+      </div>
+    </a>
+    <p class="caption">FIG 07. Eco-Board Box</p>
+  </div>
 
-    <div class="hidden-images" style="display: none;">
-      <a href="images/project-assets/Project Ginger/1Artboard 2.png" class="lightbox"></a>
-    </div>
-
-
-    <div class="image-item">
-      <a href="images/project-assets/Project Ginger/DSCF9597.jpg" class="lightbox">
-        <img src="images/project-assets/Project Ginger/DSCF9597.jpg">
-      </a>
-      <p>FIG 07. Eco-Board Box</p>
-    </div>
-
-    <div class="hidden-images" style="display: none;">
-      <a href="images/project-assets/Project Ginger/1Artboard 7.png" class="lightbox"></a>
-    </div>
-
+  <div class="media-item hidden">
+    <a href="images/project-assets/Project Ginger/1Artboard 7.png" data-fancybox="gallery" data-caption="Eco-Board Box">
+      <div class="media-box">
+        <img src="images/project-assets/Project Ginger/1Artboard 7.png"/>
+      </div>
+    </a>
+  </div>
 
   </div>
 </div>
@@ -388,72 +388,9 @@ Over a six week period, I asked professional makers to set me a task to teach me
     
    
   </div>
-   
-
   
 
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const lightboxLinks = document.querySelectorAll(".lightbox");
-  const lightboxOverlay = document.createElement("div");
-  lightboxOverlay.classList.add("lightbox-overlay");
-  lightboxOverlay.innerHTML = `
-    <span class="close-btn">&times;</span>
-    <img src="" alt="Lightbox Image">
-    <button class="prev-btn">&#10094;</button>
-    <button class="next-btn">&#10095;</button>
-  `;
-  document.body.appendChild(lightboxOverlay);
-
-  const lightboxImage = lightboxOverlay.querySelector("img");
-  const closeBtn = lightboxOverlay.querySelector(".close-btn");
-  const prevBtn = lightboxOverlay.querySelector(".prev-btn");
-  const nextBtn = lightboxOverlay.querySelector(".next-btn");
-
-  let currentIndex = 0;
-
-  const showImage = (index) => {
-    const totalImages = lightboxLinks.length;
-    if (index < 0) {
-      currentIndex = totalImages - 1; // Wrap to the last image
-    } else if (index >= totalImages) {
-      currentIndex = 0; // Wrap to the first image
-    } else {
-      currentIndex = index;
-    }
-    const imgSrc = lightboxLinks[currentIndex].getAttribute("href");
-    lightboxImage.src = imgSrc;
-    lightboxOverlay.style.display = "flex";
-  };
-
-  lightboxLinks.forEach((link, index) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      showImage(index);
-    });
-  });
-
-  closeBtn.addEventListener("click", () => {
-    lightboxOverlay.style.display = "none";
-  });
-
-  prevBtn.addEventListener("click", () => {
-    showImage(currentIndex - 1);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    showImage(currentIndex + 1);
-  });
-
-  lightboxOverlay.addEventListener("click", (e) => {
-    if (e.target === lightboxOverlay) {
-      lightboxOverlay.style.display = "none";
-    }
-  });
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
 </body>
 
