@@ -122,6 +122,8 @@
       <div id="status-line"></div>
     </div>
 
+    <span id="unlock-track" data-track="A message unlocked" hidden aria-hidden="true"></span>
+
     <!-- MESSAGE (revealed on correct password) -->
     <div id="message-wrapper">
       <div class="projects-container">
@@ -255,6 +257,7 @@
           document.getElementById('login-wrapper').style.display = 'none';
           document.getElementById('message-wrapper').style.display = 'block';
           document.getElementById('msg-body').textContent = message;
+          document.getElementById('unlock-track')?.click();
           return; // success — stop trying
         } catch {
           // this entry didn't match — try the next one
