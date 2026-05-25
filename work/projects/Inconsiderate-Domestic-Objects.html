@@ -33,17 +33,11 @@
             <p><br><br>If you have something that fufills all of those questions, submit them below!</p>
         </div>
         <div class="entry-container">
-            <form
-              class="submission-form"
-              action="https://formsubmit.co/dsinc001@campus.goldsmiths.ac.uk"
-              method="POST"
-            >
-              <input type="hidden" name="_subject" value="IDO submission">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_next" value="https://www.danielsinclair.design/work/projects/IDO?submitted=true">
-              <input type="text" name="_gotcha" class="submission-honeypot" tabindex="-1" autocomplete="off">
+            <form class="submission-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+              <input type="checkbox" name="botcheck" class="submission-honeypot" tabindex="-1" autocomplete="off">
 
               <p id="submission-success" class="submission-success" hidden>Thank you — your proposal has been sent.</p>
+              <p id="submission-error" class="submission-error" hidden></p>
               <p class="submission-required-note">* indicates required field</p>
 
               <label class="submission-label" for="submission-name">Name: <span class="submission-required" aria-hidden="true">*</span></label>
@@ -58,6 +52,8 @@
               <label class="submission-label" for="submission-proposal">Inconsiderate Object Proposal: <span class="submission-required" aria-hidden="true">*</span></label>
               <textarea class="submission-textarea" id="submission-proposal" name="proposal" rows="8" required></textarea>
 
+              <div class="h-captcha" data-captcha="true"></div>
+
               <button class="submission-button" type="submit">Submit proposal</button>
             </form>
         </div>
@@ -71,14 +67,11 @@
     </div>
   </main>
 
+  <script src="https://web3forms.com/client/script.js" async defer></script>
   <script src="../../js/include-nav.js"></script>
   <script src="../../js/effects.js"></script>
   <script src="../../js/analytics.js"></script>
-  <script>
-    if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
-      const message = document.getElementById('submission-success');
-      if (message) message.hidden = false;
-    }
-  </script>
+  <script src="../../js/ido-form-config.js"></script>
+  <script src="../../js/ido-form.js"></script>
 </body>
 </html>

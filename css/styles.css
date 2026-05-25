@@ -276,6 +276,11 @@
       font-weight: bold;
     }
 
+    .submission-error {
+      margin-bottom: 8px;
+      color: #8b0000;
+    }
+
     .submission-honeypot {
       position: absolute;
       left: -9999px;
