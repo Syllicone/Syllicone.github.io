@@ -23,13 +23,13 @@ The navigation is open-ended by design, making it easy to slot in new sections a
     ├── Projects
     ├── Writing
     ├── Photography
-└── Links                        # in development         
+└── Extra                        # in development         
 
 └── Settings                     # in development
 
 └── Tools                        # in development    
 
-&#x20;   ├── Image processing
+\&#x20;   ├── Image processing
     └── QR code generation
 ```
 
