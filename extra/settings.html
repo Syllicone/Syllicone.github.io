@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styles.css">
+  <title>Settings</title>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main>
+    <div class="projects-container">
+      <p class="about-heading">Settings</p>
+      <p class="about-text">Some extra settings to make the site more enjoyable.</p>
+
+      <div class="settings-section">
+        <p class="about-text bold">Lighting:</p>
+        <div class="settings-controls">
+          <button class="setting-btn" data-setting="theme" data-value="light">light</button>
+          <button class="setting-btn" data-setting="theme" data-value="dark">dark</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <p class="about-text bold">Cursor:</p>
+        <div class="settings-controls">
+          <button class="setting-btn" data-setting="cursor" data-value="1">1</button>
+          <button class="setting-btn" data-setting="cursor" data-value="2">2</button>
+          <button class="setting-btn" data-setting="cursor" data-value="3">3</button>
+          <button class="setting-btn" data-setting="cursor" data-value="0">4</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <p class="about-text bold">Ambient nature sounds:</p>
+        <div class="settings-controls">
+          <button class="setting-btn" data-setting="ambient" data-value="on">on</button>
+          <button class="setting-btn" data-setting="ambient" data-value="off">off</button>
+        </div>
+      </div>
+
+      <div class="settings-section" style="display: none;">
+        <p class="about-text bold">Dachshund:</p>
+        <div class="settings-controls">
+          <button class="setting-btn" data-setting="dachshund" data-value="on">on</button>
+          <button class="setting-btn" data-setting="dachshund" data-value="off">off</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/include-nav.js"></script>
+  <script src="../js/effects.js"></script>
+  <script src="../js/analytics.js"></script>
+  <script src="../js/settings.js"></script>
+</body>
+</html>
