@@ -12,13 +12,13 @@
     if (cn >= 1 && cn <= 3) {
       var bp = window.location.pathname.indexOf('/Portfolio_2_Mock/') !== -1 ? '/Portfolio_2_Mock' : '';
       var pad = cn < 10 ? '0' + cn : '' + cn;
-      var st = document.createElement('style');
+      var st = document.getElementById('settings-cursor-style') || document.createElement('style');
       st.id = 'settings-cursor-style';
       st.textContent =
         '* { cursor: url("' + bp + '/extra/assets/cursors/arrow-' + pad + '.cur"), default !important; }\n' +
         'a, button, .nav-collapsible-trigger, [role="button"], [tabindex]:not([tabindex="-1"]) ' +
         '{ cursor: url("' + bp + '/extra/assets/cursors/hover-' + pad + '.cur"), pointer !important; }';
-      document.head.appendChild(st);
+      if (!st.parentNode) document.head.appendChild(st);
     }
 
     var onSettingsPage = window.location.pathname.indexOf('settings') !== -1;
