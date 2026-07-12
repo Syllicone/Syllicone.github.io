@@ -207,6 +207,10 @@ main h2 {
   font-weight: bold;
 }
 
+.notice {
+  color: rgb(0, 0, 255);
+}
+
 .link {
   color: var(--color-link);
   text-decoration: underline;
