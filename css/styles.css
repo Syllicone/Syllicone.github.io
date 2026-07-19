@@ -610,3 +610,29 @@ main h2 {
   }
 
 }
+
+details.terminal-btn {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+details.terminal-btn summary {
+  list-style: none;
+}
+
+details.terminal-btn summary::-webkit-details-marker {
+  display: none;
+}
+
+.contents-links {
+  list-style: none;
+}
+
+.contents-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.section-anchor {
+  scroll-margin-top: 25px;
+}
