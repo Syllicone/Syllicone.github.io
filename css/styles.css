@@ -452,6 +452,14 @@ main h2 {
   aspect-ratio: 3 / 2 !important;
 }
 
+.selected-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 2%;
+  width: 100%;
+}
+
 /* EXPANDED IMAGE STATE */
 .entry {
   transition: all 0.3s ease;
@@ -636,3 +644,95 @@ details.terminal-btn summary::-webkit-details-marker {
 .section-anchor {
   scroll-margin-top: 25px;
 }
+
+/* SELECTED WORKS PAGE */
+#selected-works-root {
+  width: 100%;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 20px 0 10px;
+}
+
+.filter-bar .terminal-btn {
+  margin: 0;
+}
+
+.filter-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0 0 4px;
+}
+
+.filter-checklist label {
+  cursor: pointer;
+}
+
+.work-entry {
+  margin-top: 50px;
+  padding-bottom: 30px;
+}
+
+.work-entry[hidden] {
+  display: none;
+}
+
+.work-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.work-meta {
+  flex: 0 0 320px;
+}
+
+.work-description {
+  flex: 1 1 320px;
+}
+
+.work-title {
+  font-size: 17px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.work-carousel {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.work-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .work-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .work-meta {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
+
+
+
+
+
