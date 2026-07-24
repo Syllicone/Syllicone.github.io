@@ -203,6 +203,10 @@ main h2 {
   margin-top: 12px;
 }
 
+.about-text-selected {
+  max-width: 600px;
+}
+
 .about-text.bold {
   font-weight: bold;
 }
@@ -326,6 +330,11 @@ main h2 {
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 10%;
 }
+
+.above {
+  border-top: 1px solid var(--color-border);
+}
+
 
 .Image {
   max-width: 400px;
@@ -646,20 +655,34 @@ details.terminal-btn summary::-webkit-details-marker {
 }
 
 /* SELECTED WORKS PAGE */
-#selected-works-root {
-  width: 100%;
-}
-
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 12px;
+  width: 100%;
   margin: 20px 0 10px;
 }
 
-.filter-bar .terminal-btn {
-  margin: 0;
+/* An open dropdown claims the full row so its checklist has a definite
+   width to lay out against — grid-template-columns: repeat(auto-fill, ...)
+   can't resolve column count from a shrink-to-fit flex item's content. */
+.filter-dropdown[open] {
+  flex-basis: 100%;
+}
+
+.filter-trigger {
+  background: none;
+  border: none;
+  padding: 2px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.filter-trigger:hover {
+  color: rgb(255, 255, 0);
+  background-color: black;
 }
 
 .filter-checklist {
@@ -670,13 +693,25 @@ details.terminal-btn summary::-webkit-details-marker {
   padding: 8px 0 0 4px;
 }
 
+.filter-checklist.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 4px 16px;
+}
+
 .filter-checklist label {
+  display: block;
+  padding: 1px 2px;
   cursor: pointer;
 }
 
+.filter-checklist label:hover {
+  color: rgb(255, 255, 0);
+  background-color: black;
+}
+
 .work-entry {
-  margin-top: 50px;
-  padding-bottom: 30px;
+  width: 100%;
 }
 
 .work-entry[hidden] {
@@ -687,11 +722,11 @@ details.terminal-btn summary::-webkit-details-marker {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 40px;
+  gap: 15%;
 }
 
 .work-meta {
-  flex: 0 0 320px;
+  flex: 0 0 450px;
 }
 
 .work-description {
@@ -705,18 +740,42 @@ details.terminal-btn summary::-webkit-details-marker {
 }
 
 .work-carousel {
-  width: 100%;
-  aspect-ratio: 3 / 2;
+  position: relative;
+  /* The window is deliberately wider than a 3:2 image needs, so even an
+     image at exactly that reference ratio still leaves peek room: sized
+     so a 3:2 image at full height comes out to ~70% of the page while
+     the window itself is 95%. aspect-ratio = (95/70) * (3/2) = 57/28. */
+  width: 95%;
+  aspect-ratio: 57 / 28;
   overflow: hidden;
   cursor: pointer;
   margin-top: 30px;
 }
 
-.work-carousel img {
-  width: 100%;
+.carousel-track {
+  display: flex;
+  height: 90%;
+  transition: transform 0.3s ease;
+}
+
+.carousel-track img {
+  flex: none;
+  width: auto;
   height: 100%;
-  object-fit: cover;
   display: block;
+}
+
+.carousel-track .carousel-current.cursor-next,
+.carousel-track .carousel-peek {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='10,6 24,16 10,26' fill='black' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
+    e-resize;
+}
+
+.carousel-track .carousel-current.cursor-prev {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='22,6 8,16 22,26' fill='black' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
+    w-resize;
 }
 
 @media (max-width: 900px) {

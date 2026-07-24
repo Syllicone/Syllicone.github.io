@@ -1,57 +1,9 @@
-// Renders the curated "Selected Works" list (filter bar + per-work carousels)
-// into #selected-works-root, if that container exists on the page.
+// Selected Works page behaviour only — the works themselves are plain HTML
+// blocks in work/portfolio.html (.work-entry, copy one to add a new work).
+// This script builds the Type/Keywords filter bar from whatever .work-entry
+// blocks it finds (reading their data-type/data-keywords attributes), and
+// wires up click/keyboard navigation for each .work-carousel's <img> set.
 (function () {
-  var WORKS = [
-    {
-      id: 'ido',
-      title: 'Inconsiderate Domestic Objects',
-      year: '2026',
-      type: 'PROJECT',
-      keywords: ['Technology', 'Interaction', 'Relationship'],
-      outcomes: ['Interface', 'Objects', 'Publication'],
-      description: 'Inconsiderate Domestic Objects make us more considerate by using them. This series of tools encourage emotional reflection through friction. Highlighting the ways in which domestic technologies are optimised for functions rather than humanness. The project encourages more poetic modes of habitation, helping people recognise and expel mathematical efficiency from their pockets, countertops and bedside tables. The project aims to enable new emotional behaviours, and enrich our imaginations.',
-      href: '/work/projects/Inconsiderate-Domestic-Objects',
-      images: [
-        { src: 'projects/IDO-images/DANIEL_SINCLAIR_SUPPORT.jpg', alt: 'Inconsiderate Domestic Objects' },
-        { src: 'projects/IDO-images/toaster-hands.gif', alt: 'Copy-cat Toaster' },
-        { src: 'projects/IDO-images/UI.png', alt: 'Inconsiderate Domestic Objects Interface' },
-        { src: 'projects/IDO-images/00kettle.gif', alt: 'Hold down the kettle' },
-        { src: 'projects/IDO-images/00lamp.gif', alt: 'Eye contact lamp' },
-        { src: 'projects/IDO-images/hold hands toastie machine.png', alt: "Early proposal to hold 'hands' with a toastie maker" }
-      ]
-    },
-    {
-      id: 'escaping-recognition',
-      title: 'Escaping Recognition',
-      year: '2025',
-      type: 'PROJECT',
-      keywords: ['Vision', 'Non-human', 'Escape'],
-      outcomes: ['Publication', 'Research'],
-      description: "The mortifying ordeal of being known is becoming increasingly complex as high resolution satellites orbit the earth, as we live in close proximity to animal vision systems we do not comprehend, and interact with an increasing amount of people. If only there was a way to understand and evade how we are perceived.",
-      href: '/work/projects/Escaping-Recognition',
-      images: [
-        { src: 'projects/Escaping-recognition-images/Garden from top floor ZI.jpg', alt: 'What my neighbours & flatmates see' },
-        { src: 'projects/Escaping-recognition-images/Nvis escape easier to see.jpg', alt: 'Hiding from night vision with a dark umbrella' },
-        { src: 'projects/Escaping-recognition-images/Cover.jpg', alt: 'How to Avoid Everything: One thing at a time pocket guide' },
-        { src: 'projects/Escaping-recognition-images/Flow chart.png', alt: "What 'sees' me in my garden?" },
-        { src: 'projects/Escaping-recognition-images/IMG_1.jpg', alt: 'How to Avoid Everything: One thing at a time' },
-        { src: 'projects/Escaping-recognition-images/What-sees-me-in-my-garden.jpg', alt: 'This is what sees me' }
-      ]
-    }
-  ];
-
-  function collectFilterOptions(works) {
-    var types = [];
-    var keywords = [];
-    works.forEach(function (work) {
-      if (types.indexOf(work.type) === -1) types.push(work.type);
-      work.keywords.forEach(function (k) {
-        if (keywords.indexOf(k) === -1) keywords.push(k);
-      });
-    });
-    return { types: types, keywords: keywords };
-  }
-
   function el(tag, className, text) {
     var node = document.createElement(tag);
     if (className) node.className = className;
@@ -59,23 +11,52 @@
     return node;
   }
 
-  function renderFilterChecklist(name, values) {
-    var details = el('details', 'terminal-btn filter-dropdown');
-    var summary = el('summary', null, name);
-    details.appendChild(summary);
+  function splitList(value) {
+    return (value || '').split('/').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
 
-    var list = el('ul', 'filter-checklist');
-    values.forEach(function (value) {
-      var item = el('li');
+  // Counts how many .work-entry blocks use each type/keyword, in first-seen
+  // order, so the dropdowns can show "(no.) times used" next to each one.
+  function collectFilterOptions(entries) {
+    var typeCounts = {};
+    var typeOrder = [];
+    var keywordCounts = {};
+    var keywordOrder = [];
+
+    entries.forEach(function (entry) {
+      var type = entry.dataset.type;
+      if (type) {
+        if (!(type in typeCounts)) { typeCounts[type] = 0; typeOrder.push(type); }
+        typeCounts[type]++;
+      }
+      splitList(entry.dataset.keywords).forEach(function (k) {
+        if (!(k in keywordCounts)) { keywordCounts[k] = 0; keywordOrder.push(k); }
+        keywordCounts[k]++;
+      });
+    });
+
+    return {
+      types: typeOrder.map(function (v) { return { value: v, count: typeCounts[v] }; }),
+      keywords: keywordOrder.map(function (v) { return { value: v, count: keywordCounts[v] }; })
+    };
+  }
+
+  function renderFilterChecklist(name, items, gridLayout) {
+    var details = el('details', 'filter-dropdown');
+    details.appendChild(el('summary', 'filter-trigger', name));
+
+    var list = el('ul', 'filter-checklist' + (gridLayout ? ' grid' : ''));
+    items.forEach(function (item) {
+      var li = el('li');
       var label = el('label');
       var checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.dataset.filterGroup = name.toLowerCase();
-      checkbox.value = value;
+      checkbox.value = item.value;
       label.appendChild(checkbox);
-      label.appendChild(document.createTextNode(' ' + value));
-      item.appendChild(label);
-      list.appendChild(item);
+      label.appendChild(document.createTextNode(' ' + item.value + ' (' + item.count + ')'));
+      li.appendChild(label);
+      list.appendChild(li);
     });
     details.appendChild(list);
     return details;
@@ -84,144 +65,203 @@
   function renderFilterBar(container, options) {
     var bar = el('div', 'filter-bar');
 
-    var allBtn = el('button', 'terminal-btn filter-all-btn', 'All');
+    var allBtn = el('button', 'filter-trigger filter-all-btn', 'All');
     allBtn.type = 'button';
     bar.appendChild(allBtn);
 
-    bar.appendChild(renderFilterChecklist('Type', options.types));
-    bar.appendChild(renderFilterChecklist('Keywords', options.keywords));
+    bar.appendChild(renderFilterChecklist('Type', options.types, false));
+    bar.appendChild(renderFilterChecklist('Keywords', options.keywords, true));
 
     container.appendChild(bar);
-  }
-
-  function renderWorkEntry(work) {
-    var entry = el('div', 'work-entry border');
-    entry.dataset.workId = work.id;
-    entry.dataset.type = work.type;
-    entry.dataset.keywords = work.keywords.join('|');
-
-    var header = el('div', 'work-header');
-
-    var meta = el('div', 'selected-text-box work-meta');
-    var titleLink = document.createElement('a');
-    titleLink.className = 'link work-title';
-    titleLink.href = work.href;
-    var titleP = el('p');
-    titleP.appendChild(titleLink);
-    titleLink.textContent = work.title;
-    meta.appendChild(titleP);
-    meta.appendChild(el('p', 'work-date', work.year));
-    meta.appendChild(el('p', 'work-date', work.type));
-    meta.appendChild(el('p', 'work-date', ' '));
-    meta.appendChild(el('p', 'work-date', 'Keywords: ' + work.keywords.join(' / ')));
-    meta.appendChild(el('p', 'work-date', 'Outcomes: ' + work.outcomes.join(' / ')));
-    header.appendChild(meta);
-
-    var descriptionBox = el('div', 'selected-text-box work-description');
-    descriptionBox.appendChild(el('p', 'about-text', work.description));
-    header.appendChild(descriptionBox);
-
-    entry.appendChild(header);
-
-    var carousel = el('div', 'work-carousel');
-    carousel.dataset.workId = work.id;
-    carousel.dataset.index = '0';
-    carousel.tabIndex = 0;
-    carousel.setAttribute('aria-label', work.title + ' image carousel');
-    var img = document.createElement('img');
-    img.src = work.images[0].src;
-    img.alt = work.images[0].alt;
-    carousel.appendChild(img);
-    entry.appendChild(carousel);
-
-    return entry;
-  }
-
-  function stepCarousel(carouselEl, direction) {
-    var work = WORKS.filter(function (w) { return w.id === carouselEl.dataset.workId; })[0];
-    if (!work) return;
-    var count = work.images.length;
-    var index = parseInt(carouselEl.dataset.index, 10) || 0;
-    index = (index + direction + count) % count;
-    carouselEl.dataset.index = String(index);
-    var img = carouselEl.querySelector('img');
-    img.src = work.images[index].src;
-    img.alt = work.images[index].alt;
   }
 
   function matchesFilters(entry, activeTypes, activeKeywords) {
     if (activeTypes.size && !activeTypes.has(entry.dataset.type)) return false;
     if (activeKeywords.size) {
-      var keywords = entry.dataset.keywords.split('|');
-      var hasMatch = keywords.some(function (k) { return activeKeywords.has(k); });
-      if (!hasMatch) return false;
+      var keywords = splitList(entry.dataset.keywords);
+      if (!keywords.some(function (k) { return activeKeywords.has(k); })) return false;
     }
     return true;
   }
 
-  function applyFilters(root) {
+  function applyFilters(filterBarRoot, entries) {
     var activeTypes = new Set();
     var activeKeywords = new Set();
-    root.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+    filterBarRoot.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
       if (!checkbox.checked) return;
       if (checkbox.dataset.filterGroup === 'type') activeTypes.add(checkbox.value);
       else if (checkbox.dataset.filterGroup === 'keywords') activeKeywords.add(checkbox.value);
     });
 
-    root.querySelectorAll('.work-entry').forEach(function (entry) {
+    entries.forEach(function (entry) {
       entry.hidden = !matchesFilters(entry, activeTypes, activeKeywords);
     });
   }
 
-  function render(root) {
-    var options = collectFilterOptions(WORKS);
-    renderFilterBar(root, options);
+  // The carousel is a real horizontal filmstrip: every image sits in a row
+  // inside .carousel-track at its own natural aspect ratio (height:100%,
+  // width:auto — no cropping), and the "peek" of the next image is simply
+  // whatever pokes past the viewport's right edge before being clipped by
+  // .work-carousel's overflow:hidden — not a separately cropped preview.
+  //
+  // Navigation loops infinitely without ever animating "backwards" across
+  // the whole strip: advancing slides one image over, then — once that
+  // slide has visually finished — silently moves the passed image to the
+  // far end of the track and snaps the transform back to 0 (invisible,
+  // since the next image is now sitting exactly where the old one was).
+  // Going back does the same in reverse: prepend the last image, jump the
+  // transform to compensate (invisible), then animate forward to reveal it.
+  // Real elements are reused/reordered — no cloned nodes.
+  var CAROUSEL_GAP = 40; // fixed px gap between images in the strip
 
-    var list = el('div', 'work-list');
-    WORKS.forEach(function (work) {
-      list.appendChild(renderWorkEntry(work));
-    });
-    root.appendChild(list);
+  // Splits the current image in half and toggles the left/right-arrow
+  // cursor class to match which half the pointer is over.
+  function updateCursorHalf(current, clientX) {
+    var rect = current.getBoundingClientRect();
+    var overRight = (clientX - rect.left) > rect.width / 2;
+    current.classList.toggle('cursor-next', overRight);
+    current.classList.toggle('cursor-prev', !overRight);
+    return overRight;
+  }
 
-    root.addEventListener('click', function (e) {
-      var carousel = e.target.closest('.work-carousel');
-      if (carousel) {
-        var rect = carousel.getBoundingClientRect();
-        var clickedRight = (e.clientX - rect.left) > rect.width / 2;
-        stepCarousel(carousel, clickedRight ? 1 : -1);
-        return;
+  function initCarousel(carousel) {
+    var track = carousel.querySelector('.carousel-track');
+    if (!track) return;
+    track.style.gap = CAROUSEL_GAP + 'px';
+
+    function currentImages() {
+      return Array.prototype.slice.call(track.querySelectorAll('img'));
+    }
+
+    var count = currentImages().length;
+    if (!count) return;
+
+    var pendingFinish = null;
+    var pendingListener = null;
+
+    function clearPending() {
+      if (pendingListener) {
+        track.removeEventListener('transitionend', pendingListener);
+        pendingListener = null;
       }
+      pendingFinish = null;
+    }
 
-      if (e.target.closest('.filter-all-btn')) {
-        root.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
-          checkbox.checked = false;
+    // Runs a deferred reorder immediately (skipping ahead of its slide
+    // animation) — used both when the animation naturally finishes and
+    // when a new click arrives before it has, so rapid repeat clicks
+    // always start from a settled, consistent order.
+    function finishPendingNow() {
+      if (!pendingFinish) return;
+      var fn = pendingFinish;
+      clearPending();
+      fn();
+    }
+
+    // Marks images[currentPos] as the visible/current one (full a11y
+    // exposure) and images[currentPos + 1] as the peeking one, without
+    // touching the track's transform.
+    function markCurrentAndPeek(currentPos) {
+      currentImages().forEach(function (img, i) {
+        img.classList.remove('carousel-current', 'carousel-peek');
+        if (i === currentPos) {
+          img.classList.add('carousel-current');
+          img.removeAttribute('aria-hidden');
+        } else {
+          img.setAttribute('aria-hidden', 'true');
+          if (i === currentPos + 1) img.classList.add('carousel-peek');
+        }
+      });
+    }
+
+    function step(direction) {
+      finishPendingNow();
+      if (count <= 1) return;
+
+      if (direction > 0) {
+        var imgs = currentImages();
+        var first = imgs[0];
+        var dist = first.offsetWidth + CAROUSEL_GAP;
+        track.style.transform = 'translateX(-' + dist + 'px)';
+        markCurrentAndPeek(1); // imgs[1] is what's sliding into view
+
+        pendingFinish = function () {
+          track.style.transition = 'none';
+          track.appendChild(first); // move the passed image to the far end
+          track.style.transform = 'translateX(0)'; // imgs[1] is now first — no visible jump
+          void track.offsetWidth; // force the instant jump to commit
+          track.style.transition = '';
+          markCurrentAndPeek(0);
+        };
+        pendingListener = function (e) {
+          if (e.target === track && e.propertyName === 'transform') finishPendingNow();
+        };
+        track.addEventListener('transitionend', pendingListener);
+      } else {
+        var imgs2 = currentImages();
+        var last = imgs2[imgs2.length - 1];
+        var dist2 = last.offsetWidth + CAROUSEL_GAP;
+
+        track.style.transition = 'none';
+        track.insertBefore(last, imgs2[0]); // prepend — DOM order shifts...
+        track.style.transform = 'translateX(-' + dist2 + 'px)'; // ...compensate, so nothing visibly moves yet
+        void track.offsetWidth;
+        track.style.transition = '';
+        markCurrentAndPeek(0); // `last` is now first, and already correct
+
+        requestAnimationFrame(function () {
+          track.style.transform = 'translateX(0)'; // now animate the reveal
         });
-        root.querySelectorAll('.filter-dropdown').forEach(function (details) {
-          details.open = false;
-        });
-        applyFilters(root);
+      }
+    }
+
+    markCurrentAndPeek(0);
+
+    carousel.addEventListener('click', function (e) {
+      var current = carousel.querySelector('.carousel-current');
+      if (!current) return;
+      var clickedRight = updateCursorHalf(current, e.clientX);
+      step(clickedRight ? 1 : -1);
+      // Keep the cursor correct immediately after the swap, without
+      // waiting on the next mousemove, since the pointer hasn't moved yet.
+      var newCurrent = carousel.querySelector('.carousel-current');
+      if (newCurrent) updateCursorHalf(newCurrent, e.clientX);
+    });
+
+    carousel.addEventListener('mousemove', function (e) {
+      if (e.target.classList.contains('carousel-current')) {
+        updateCursorHalf(e.target, e.clientX);
       }
     });
 
-    root.addEventListener('keydown', function (e) {
-      var carousel = e.target.closest('.work-carousel');
-      if (!carousel) return;
-      if (e.key === 'ArrowRight') {
-        stepCarousel(carousel, 1);
-        e.preventDefault();
-      } else if (e.key === 'ArrowLeft') {
-        stepCarousel(carousel, -1);
-        e.preventDefault();
-      }
-    });
-
-    root.addEventListener('change', function (e) {
-      if (e.target.matches('input[type="checkbox"]')) applyFilters(root);
+    carousel.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
     });
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var root = document.getElementById('selected-works-root');
-    if (root) render(root);
+    var filterBarRoot = document.getElementById('selected-works-filter-bar');
+    if (!filterBarRoot) return;
+
+    var entries = Array.prototype.slice.call(document.querySelectorAll('.work-entry'));
+    renderFilterBar(filterBarRoot, collectFilterOptions(entries));
+
+    filterBarRoot.addEventListener('click', function (e) {
+      if (!e.target.closest('.filter-all-btn')) return;
+      filterBarRoot.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+        checkbox.checked = false;
+      });
+      filterBarRoot.querySelectorAll('.filter-dropdown').forEach(function (details) {
+        details.open = false;
+      });
+      applyFilters(filterBarRoot, entries);
+    });
+
+    filterBarRoot.addEventListener('change', function (e) {
+      if (e.target.matches('input[type="checkbox"]')) applyFilters(filterBarRoot, entries);
+    });
+
+    document.querySelectorAll('.work-carousel').forEach(initCarousel);
   });
 })();
