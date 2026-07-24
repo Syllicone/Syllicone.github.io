@@ -765,17 +765,22 @@ details.terminal-btn summary::-webkit-details-marker {
   display: block;
 }
 
+/* !important here because the sitewide custom-cursor setting (see the
+   inline script in every page's <head>) injects `* { cursor: ... !important }`
+   when a cursor theme is active — without !important that rule always wins
+   over this one regardless of selector specificity, so the carousel arrow
+   would never show. */
 .carousel-track .carousel-current.cursor-next,
 .carousel-track .carousel-peek {
   cursor:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='10,6 24,16 10,26' fill='black' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
-    e-resize;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='10,6 24,16 10,26' fill='white' stroke='black' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
+    e-resize !important;
 }
 
 .carousel-track .carousel-current.cursor-prev {
   cursor:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='22,6 8,16 22,26' fill='black' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
-    w-resize;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='22,6 8,16 22,26' fill='white' stroke='black' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
+    w-resize !important;
 }
 
 @media (max-width: 900px) {
