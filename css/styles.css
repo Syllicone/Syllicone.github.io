@@ -626,14 +626,25 @@ main h2 {
     display: block;
   }
 
+  .media-text-box,
+  .media-text-box-wide {
+    margin-top: 24px;
+  }
+
   .media-text-box {
     width: 80%;
   }
 
   .media-grid {
     grid-template-columns: repeat(1, 1fr);
+    grid-auto-flow: row;
+    row-gap: 24px;
+    padding-bottom: 32px;
   }
 
+  .border.extend {
+    padding-bottom: 32px;
+  }
 }
 
 details.terminal-btn {
