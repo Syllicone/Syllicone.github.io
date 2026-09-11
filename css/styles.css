@@ -626,6 +626,14 @@ main h2 {
     display: block;
   }
 
+  .media-text-box {
+    width: 80%;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
 }
 
 details.terminal-btn {
