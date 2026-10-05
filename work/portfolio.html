@@ -13,13 +13,13 @@
 <main>
   <div class="projects-container">
     <p class="about-heading">Selected Works</p>
-    <p class="about-text">
+    <p>
       Here you can find a condensed portfolio of my work. Click through the images, or click a project's title to explore it in full.
     </p>
 
-    <div id="selected-works-filter-bar"></div>
+    <div data-filter-items=".work-entry"></div>
 
-    <div class="work-entry border above" data-type="PROJECT" data-keywords="Technology / Interaction / Relationship">
+    <div class="work-entry border above" data-year="2026" data-type="PROJECT" data-keywords="Technology / Interaction / Relationship">
       <div class="work-header">
         <div class="selected-text-box work-meta">
           <p><a class="link work-title" href="/work/projects/Inconsiderate-Domestic-Objects">Inconsiderate Domestic Objects</a></p>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="work-entry border" data-type="WRITING" data-keywords="Technology / Imagination / Agency">
+    <div class="work-entry border" data-year="2026" data-type="WRITING" data-keywords="Technology / Imagination / Agency">
       <div class="work-header">
         <div class="selected-text-box work-meta">
           <p><a class="link work-title" href="/work/writing/dissertation.html">A Reader for a World Already Built</a></p>
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="work-entry border" data-type="PROJECT" data-keywords="Vision / Non-human / Escape">
+    <div class="work-entry border" data-year="2025" data-type="PROJECT" data-keywords="Vision / Non-human / Escape">
       <div class="work-header">
         <div class="selected-text-box work-meta">
           <p><a class="link work-title" href="/work/projects/Escaping-Recognition">Escaping Recognition</a></p>
@@ -103,7 +103,8 @@
   <script src="../../js/include-nav.js"></script>
   <script src="../../js/effects.js"></script>
   <script src="../../js/analytics.js"></script>
-  <script src="../../js/selected-works.js"></script>
+  <script src="../../js/filter.js"></script>
+  <script src="../../js/carousel.js"></script>
 </body>
 </html>
 

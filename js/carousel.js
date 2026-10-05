@@ -1,103 +1,8 @@
 // Selected Works page behaviour only — the works themselves are plain HTML
 // blocks in work/portfolio.html (.work-entry, copy one to add a new work).
-// This script builds the Type/Keywords filter bar from whatever .work-entry
-// blocks it finds (reading their data-type/data-keywords attributes), and
-// wires up click/keyboard navigation for each .work-carousel's <img> set.
+// This script wires up click/keyboard navigation for each .work-carousel's
+// <img> set. Filtering is handled separately by js/filter.js.
 (function () {
-  function el(tag, className, text) {
-    var node = document.createElement(tag);
-    if (className) node.className = className;
-    if (text != null) node.textContent = text;
-    return node;
-  }
-
-  function splitList(value) {
-    return (value || '').split('/').map(function (s) { return s.trim(); }).filter(Boolean);
-  }
-
-  // Counts how many .work-entry blocks use each type/keyword, in first-seen
-  // order, so the dropdowns can show "(no.) times used" next to each one.
-  function collectFilterOptions(entries) {
-    var typeCounts = {};
-    var typeOrder = [];
-    var keywordCounts = {};
-    var keywordOrder = [];
-
-    entries.forEach(function (entry) {
-      var type = entry.dataset.type;
-      if (type) {
-        if (!(type in typeCounts)) { typeCounts[type] = 0; typeOrder.push(type); }
-        typeCounts[type]++;
-      }
-      splitList(entry.dataset.keywords).forEach(function (k) {
-        if (!(k in keywordCounts)) { keywordCounts[k] = 0; keywordOrder.push(k); }
-        keywordCounts[k]++;
-      });
-    });
-
-    return {
-      types: typeOrder.map(function (v) { return { value: v, count: typeCounts[v] }; }),
-      keywords: keywordOrder.map(function (v) { return { value: v, count: keywordCounts[v] }; })
-    };
-  }
-
-  function renderFilterChecklist(name, items, gridLayout) {
-    var details = el('details', 'filter-dropdown');
-    details.appendChild(el('summary', 'filter-trigger', name));
-
-    var list = el('ul', 'filter-checklist' + (gridLayout ? ' grid' : ''));
-    items.forEach(function (item) {
-      var li = el('li');
-      var label = el('label');
-      var checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.dataset.filterGroup = name.toLowerCase();
-      checkbox.value = item.value;
-      label.appendChild(checkbox);
-      label.appendChild(document.createTextNode(' ' + item.value + ' (' + item.count + ')'));
-      li.appendChild(label);
-      list.appendChild(li);
-    });
-    details.appendChild(list);
-    return details;
-  }
-
-  function renderFilterBar(container, options) {
-    var bar = el('div', 'filter-bar');
-
-    var allBtn = el('button', 'filter-trigger filter-all-btn', 'All');
-    allBtn.type = 'button';
-    bar.appendChild(allBtn);
-
-    bar.appendChild(renderFilterChecklist('Type', options.types, false));
-    bar.appendChild(renderFilterChecklist('Keywords', options.keywords, true));
-
-    container.appendChild(bar);
-  }
-
-  function matchesFilters(entry, activeTypes, activeKeywords) {
-    if (activeTypes.size && !activeTypes.has(entry.dataset.type)) return false;
-    if (activeKeywords.size) {
-      var keywords = splitList(entry.dataset.keywords);
-      if (!keywords.some(function (k) { return activeKeywords.has(k); })) return false;
-    }
-    return true;
-  }
-
-  function applyFilters(filterBarRoot, entries) {
-    var activeTypes = new Set();
-    var activeKeywords = new Set();
-    filterBarRoot.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
-      if (!checkbox.checked) return;
-      if (checkbox.dataset.filterGroup === 'type') activeTypes.add(checkbox.value);
-      else if (checkbox.dataset.filterGroup === 'keywords') activeKeywords.add(checkbox.value);
-    });
-
-    entries.forEach(function (entry) {
-      entry.hidden = !matchesFilters(entry, activeTypes, activeKeywords);
-    });
-  }
-
   // The carousel is a real horizontal filmstrip: every image sits in a row
   // inside .carousel-track at its own natural aspect ratio (height:100%,
   // width:auto — no cropping), and the "peek" of the next image is simply
@@ -241,27 +146,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var filterBarRoot = document.getElementById('selected-works-filter-bar');
-    if (!filterBarRoot) return;
-
-    var entries = Array.prototype.slice.call(document.querySelectorAll('.work-entry'));
-    renderFilterBar(filterBarRoot, collectFilterOptions(entries));
-
-    filterBarRoot.addEventListener('click', function (e) {
-      if (!e.target.closest('.filter-all-btn')) return;
-      filterBarRoot.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
-        checkbox.checked = false;
-      });
-      filterBarRoot.querySelectorAll('.filter-dropdown').forEach(function (details) {
-        details.open = false;
-      });
-      applyFilters(filterBarRoot, entries);
-    });
-
-    filterBarRoot.addEventListener('change', function (e) {
-      if (e.target.matches('input[type="checkbox"]')) applyFilters(filterBarRoot, entries);
-    });
-
     document.querySelectorAll('.work-carousel').forEach(initCarousel);
   });
 })();

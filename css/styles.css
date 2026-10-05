@@ -673,21 +673,22 @@ details.terminal-btn summary::-webkit-details-marker {
   scroll-margin-top: 25px;
 }
 
-/* SELECTED WORKS PAGE */
+/* FILTER BAR (js/filter.js) */
+/* Filtered-out items get the hidden attribute; this wins over whatever
+   display value the item's own class sets. */
+[hidden] {
+  display: none !important;
+}
+
+/* One wrapping row: All, then each category label followed by its options
+   when open, so opening a category pushes the later ones across. */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: baseline;
+  gap: 6px 12px;
   width: 100%;
   margin: 20px 0 10px;
-}
-
-/* An open dropdown claims the full row so its checklist has a definite
-   width to lay out against — grid-template-columns: repeat(auto-fill, ...)
-   can't resolve column count from a shrink-to-fit flex item's content. */
-.filter-dropdown[open] {
-  flex-basis: 100%;
 }
 
 .filter-trigger {
@@ -704,23 +705,47 @@ details.terminal-btn summary::-webkit-details-marker {
   background-color: black;
 }
 
-.filter-checklist {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 0 0 4px;
+/* Extra space before each category so its options read as a group */
+.filter-toggle {
+  margin-left: 8px;
 }
 
-.filter-checklist.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 4px 16px;
+/* One triangle, turned to point down when open */
+.filter-toggle::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.2s ease;
+}
+
+.filter-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-toggle::before {
+    transition: none;
+  }
+}
+
+/* The list itself makes no box: each <li> becomes an item of the bar's row */
+.filter-checklist {
+  display: contents;
+}
+
+.filter-checklist li {
+  list-style: none;
+  padding: 0;
+}
+
+.filter-checklist li::before {
+  content: none;
 }
 
 .filter-checklist label {
   display: block;
   padding: 1px 2px;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -729,12 +754,20 @@ details.terminal-btn summary::-webkit-details-marker {
   background-color: black;
 }
 
-.work-entry {
-  width: 100%;
+/* Options that would currently show 0 items */
+.filter-checklist label:has(input:disabled) {
+  opacity: 0.35;
+  pointer-events: none;
 }
 
-.work-entry[hidden] {
-  display: none;
+.filter-status {
+  margin: 0 0 10px;
+  padding: 0 2px;
+}
+
+/* SELECTED WORKS PAGE */
+.work-entry {
+  width: 100%;
 }
 
 .work-header {
