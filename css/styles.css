@@ -871,10 +871,6 @@ details.terminal-btn summary::-webkit-details-marker {
   text-decoration: none;
 }
 
-.reference-card p {
-  margin: 0;
-}
-
 .reference-image {
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -907,8 +903,10 @@ details.terminal-btn summary::-webkit-details-marker {
   color: var(--color-muted);
 }
 
-/* Pushed to the bottom so tags line up across a row */
+/* margin-top: auto takes up all the spare height in the card, pushing the
+   tags to the bottom so they line up across a row */
 .reference-tags {
+  font-size: 10px;
   margin-top: auto;
   padding-top: 6px;
 }
