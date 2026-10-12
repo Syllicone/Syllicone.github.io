@@ -7,7 +7,7 @@
   --color-muted: #555;
   --color-error: #8b0000;
   --color-divider: #999;
-  --color-nav-collapsed: #777;
+  --color-nav-collapsed: #88aaff;
   --color-shadow: rgba(113, 113, 113, 0.5);
 }
 
@@ -16,11 +16,11 @@ html.dark {
   --color-text: #ddd;
   --color-border: #555;
   --color-border-light: #333;
-  --color-link: #88aaff;
+  --color-link: blue;
   --color-muted: #888;
   --color-error: #ff6b6b;
   --color-divider: #888;
-  --color-nav-collapsed: #999;
+  --color-nav-collapsed: #88aaff;
   --color-shadow: rgba(0, 0, 0, 0.6);
 }
 
@@ -94,6 +94,7 @@ nav span.section-heading,
 nav span.label {
   display: block;
   width: 100%;
+  color: rgb(0,0,255);
 }
 
 .nav-collapsible-trigger {
@@ -720,7 +721,14 @@ details.terminal-btn summary::-webkit-details-marker {
 
 .filter-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
+  color: blue;
 }
+
+/* Open category label; hover keeps its yellow-on-black */
+.filter-toggle[aria-expanded="true"]:not(:hover) {
+  color: blue;
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .filter-toggle::before {
@@ -823,13 +831,15 @@ details.terminal-btn summary::-webkit-details-marker {
    over this one regardless of selector specificity, so the carousel arrow
    would never show. */
 .carousel-track .carousel-current.cursor-next,
-.carousel-track .carousel-peek {
+.carousel-track .carousel-peek,
+.lightbox img.cursor-next {
   cursor:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='10,6 24,16 10,26' fill='white' stroke='black' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
     e-resize !important;
 }
 
-.carousel-track .carousel-current.cursor-prev {
+.carousel-track .carousel-current.cursor-prev,
+.lightbox img.cursor-prev {
   cursor:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpolygon points='22,6 8,16 22,26' fill='white' stroke='black' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16,
     w-resize !important;
@@ -844,6 +854,113 @@ details.terminal-btn summary::-webkit-details-marker {
   .work-meta {
     flex-basis: auto;
     width: 100%;
+  }
+}
+
+/* OBJECT ARCHIVE */
+/* Each object is one row of columns with its thumbnails underneath. The
+   header and every row share the same columns so they line up. */
+.archive-head,
+.archive-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 1.5fr 0.6fr 0.6fr;
+  gap: 20px;
+}
+
+.archive-head,
+.archive-list {
+  width: 100%;
+}
+
+.archive-head {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.archive-row {
+  padding-top: 12px;
+}
+
+.archive-title {
+  font-weight: bold;
+}
+
+/* Thumbnails at their natural ratio, no cropping */
+.archive-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 0 20px;
+}
+
+.archive-images img {
+  height: 110px;
+  width: auto;
+  display: block;
+  cursor: zoom-in;
+}
+
+/* Full-screen gallery opened by js/lightbox.js */
+.lightbox {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white; /* caption sits on the dimmed page, in both themes */
+}
+
+/* The page stays visible behind the gallery, dimmed */
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.lightbox[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lightbox img {
+  max-width: 72vw;
+  max-height: 68vh;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .archive-head {
+    display: none;
+  }
+
+  .archive-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+  }
+
+  .archive-title,
+  .archive-description {
+    grid-column: 1 / -1;
+  }
+
+  /* With the header hidden, each field labels itself */
+  .archive-type::before { content: "Type"; }
+  .archive-material::before { content: "Material"; }
+  .archive-size::before { content: "Size"; }
+  .archive-year::before { content: "Year"; }
+
+  .archive-type::before,
+  .archive-material::before,
+  .archive-size::before,
+  .archive-year::before {
+    display: block;
+    color: var(--color-muted);
+    text-transform: uppercase;
   }
 }
 

@@ -106,12 +106,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!placeholder) return;
 
   // Bump when nav.html structure changes so clients don’t reuse stale markup.
-  var NAV_MARKUP_CACHE_VERSION = '1';
+  var NAV_MARKUP_CACHE_VERSION = '2';
   var NAV_HTML_SESSION_KEY = 'portfolio_nav_markup_v' + NAV_MARKUP_CACHE_VERSION;
   var NAV_PATH_SESSION_KEY = 'portfolio_nav_ok_path_v' + NAV_MARKUP_CACHE_VERSION;
 
   // Remember which nav folders are collapsed across full page loads (static HTML + fetch nav).
-  var NAV_COLLAPSE_STORAGE_KEY = 'portfolio_nav_collapsed_v1';
+  // Folders start collapsed unless their trigger has data-open in nav.html.
+  var NAV_COLLAPSE_STORAGE_KEY = 'portfolio_nav_collapsed_v2';
 
   function loadCollapsedMap() {
     try {
@@ -221,18 +222,14 @@ document.addEventListener('DOMContentLoaded', function () {
           target.hidden = !isExpanded;
           if (persist) {
             var map = loadCollapsedMap();
-            if (!isExpanded) {
-              map[id] = true;
-            } else {
-              delete map[id];
-            }
+            map[id] = !isExpanded;
             saveCollapsedMap(map);
           }
         }
 
         var collapsedMap = loadCollapsedMap();
-        var storedCollapsed = !!collapsedMap[id];
-        setExpanded(!storedCollapsed, false);
+        var collapsed = id in collapsedMap ? collapsedMap[id] : !trigger.hasAttribute('data-open');
+        setExpanded(!collapsed, false);
 
         trigger.addEventListener('click', function () {
           var expanded = trigger.getAttribute('aria-expanded') === 'true';

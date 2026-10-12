@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>(function(){try{var s=JSON.parse(localStorage.getItem('portfolio_settings_v1')||'{}');if(s.theme==='dark')document.documentElement.classList.add('dark');var cn=parseInt(s.cursor,10);if(cn>=1&&cn<=3){var bp=location.pathname.indexOf('/Portfolio_2_Mock/')!==-1?'/Portfolio_2_Mock':'';var pad=cn<10?'0'+cn:''+cn;var el=document.getElementById('settings-cursor-style');if(!el){el=document.createElement('style');el.id='settings-cursor-style';document.head.appendChild(el);}el.textContent='*{cursor:url("'+bp+'/extra/assets/cursors/arrow-'+pad+'.cur"),default!important;}a,button,.nav-collapsible-trigger,[role="button"],[tabindex]:not([tabindex="-1"]){cursor:url("'+bp+'/extra/assets/cursors/hover-'+pad+'.cur"),pointer!important;}'}}catch(e){}})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <title>Object Archive</title>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main>
+    <div class="projects-container">
+        <p class="about-heading">Object Archive</p>
+        <p class="about-text">
+          A collection of uncontextualised objects I have made. These objects are not part of any project, and are not for sale. They are a record of my practice, and a way to explore the possibilities of object-making.
+        <br>
+        <br>
+        </p>
+
+        <div data-filter-items=".archive-object" data-facets="year type material size"></div>
+        <br>
+        <div class="archive-head">
+          <p>Title</p>
+          <p>Description</p>
+          <p>Type</p>
+          <p>Material</p>
+          <p>Size</p>
+          <p>Year</p>
+        </div>
+
+        <div class="archive-list">
+
+        
+
+          <div class="archive-object border" data-type="Object" data-material="Paper / Bamboo" data-size="M" data-year="2026">
+            <div class="archive-row">
+              <p class="archive-title">Replica Akari UF4 L8</p>
+              <p class="archive-description">-</p>
+              <p class="archive-type">Object</p>
+              <p class="archive-material">Paper / Bamboo / Repurposed lamp stand</p>
+              <p class="archive-size">M</p>
+              <p class="archive-year">2026</p>
+            </div>
+            <div class="archive-images" data-gallery>
+              <img src="object-archive-assets/lamp1.jpg">
+              <img src="object-archive-assets/lamp2.jpg">
+              <img src="object-archive-assets/lamp3.jpg">
+              <img src="object-archive-assets/lamp4.jpg">
+              
+            </div>
+          </div>
+
+          <!-- COPY THIS BLOCK TO ADD AN OBJECT (delete the comment markers around it).
+               The data-* tags drive the filter; the text inside is what's shown.
+               Tags with several values use " / ". Size is S, M or L.
+               Put the photos in non-work/objects/<object-name>/ — click one to
+               open a gallery of just this object's photos.
+
+          <div class="archive-object border" data-type="Lamp" data-material="Oak / Steel" data-size="M" data-year="2026">
+            <div class="archive-row">
+              <p class="archive-title">Object name</p>
+              <p class="archive-description">Short description.</p>
+              <p class="archive-type">Lamp</p>
+              <p class="archive-material">Oak / Steel</p>
+              <p class="archive-size">M</p>
+              <p class="archive-year">2026</p>
+            </div>
+            <div class="archive-images" data-gallery>
+              <img src="objects/object-name/1.jpg" alt="">
+              <img src="objects/object-name/2.jpg" alt="">
+            </div>
+          </div>
+
+          -->
+
+        </div>
+    </div>
+  </main>
+
+  <script src="../../js/include-nav.js"></script>
+  <script src="../../js/effects.js"></script>
+  <script src="../../js/analytics.js"></script>
+  <script src="../../js/filter.js"></script>
+  <script src="../../js/lightbox.js"></script>
+</body>
+</html>
+
+
+
+
